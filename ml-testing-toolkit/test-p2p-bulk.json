@@ -1,0 +1,233 @@
+{
+  "name": "multi",
+  "test_cases": [
+    {
+      "id": 1,
+      "name": "P2P Transfer Happy Path",
+      "fileInfo": {
+        "path": "pm4ml_test2.json"
+      },
+      "requests": [
+        {
+          "id": 1,
+          "description": "Post /Transfers SDK-Out",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "mojaloop_sdk_outbound_scheme_adapter",
+            "specFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/api_spec.yaml",
+            "callbackMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/callback_map.json",
+            "responseMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/response_map.json",
+            "jsfRefFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/mockRef.json",
+            "triggerTemplatesFolder": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/trigger_templates"
+          },
+          "operationPath": "/transfers",
+          "path": "/transfers",
+          "method": "post",
+          "url": "http://ttkpm4mlsender-scheme-adapter:4001",
+          "body": {
+            "homeTransactionId": "abc123",
+            "from": {
+              "idType": "MSISDN",
+              "idValue": "123456789"
+            },
+            "to": {
+              "idType": "MSISDN",
+              "idValue": "48500002222"
+            },
+            "amountType": "SEND",
+            "currency": "USD",
+            "amount": "10",
+            "transactionType": "TRANSFER",
+            "note": "string"
+          }
+        }
+      ]
+    },
+    {
+      "id": 2,
+      "name": "P2P Transfer SendMoney",
+      "fileInfo": {
+        "path": "pm4ml_test2.json"
+      },
+      "requests": [
+        {
+          "id": 1,
+          "description": "SendMoney",
+          "apiVersion": {
+            "minorVersion": 4,
+            "majorVersion": 1,
+            "type": "core_connector",
+            "specFile": "spec_files/api_definitions/payment_manager_1.4/api_spec.yaml",
+            "callbackMapFile": "spec_files/api_definitions/payment_manager_1.4/callback_map.json",
+            "responseMapFile": "spec_files/api_definitions/payment_manager_1.4/response_map.json",
+            "jsfRefFile": "spec_files/api_definitions/payment_manager_1.4/mockRef.json",
+            "triggerTemplatesFolder": "spec_files/api_definitions/payment_manager_1.4/trigger_templates"
+          },
+          "operationPath": "/sendmoney",
+          "path": "/sendmoney",
+          "method": "post",
+          "url": "http://ttkpm4mlsender-mojaloop-core-connector:3003",
+          "body": {
+            "from": {
+              "displayName": "PayerFirst PayerLast",
+              "idType": "MSISDN",
+              "idValue": "25644444444"
+            },
+            "to": {
+              "idType": "MSISDN",
+              "idValue": "25633333333"
+            },
+            "amountType": "SEND",
+            "currency": "USD",
+            "amount": "10",
+            "transactionType": "TRANSFER",
+            "note": "test payment",
+            "homeTransactionId": "47fc02f7-ffe7-49ff-b1ff-da3dcc59cc41"
+          }
+        }
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Bulk Transfer",
+      "fileInfo": {
+        "path": "pm4ml_test2.json"
+      },
+      "requests": [
+        {
+          "id": 2,
+          "description": "Post Quotes",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "mojaloop_sdk_outbound_scheme_adapter",
+            "specFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/api_spec.yaml",
+            "callbackMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/callback_map.json",
+            "responseMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/response_map.json",
+            "jsfRefFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/mockRef.json",
+            "triggerTemplatesFolder": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/trigger_templates"
+          },
+          "operationPath": "/bulkQuotes",
+          "path": "/bulkQuotes",
+          "method": "post",
+          "url": "http://ttkpm4mlsender-scheme-adapter:4001",
+          "body": {
+            "homeTransactionId": "{$function.generic.generateUUID}",
+            "bulkQuoteId": "{$function.generic.generateUUID}",
+            "from": {
+              "idType": "MSISDN",
+              "idValue": "123456789",
+              "type": "CONSUMER",
+              "displayName": "PayerFirst PayerLast",
+              "firstName": "PayerFirst",
+              "middleName": "Something",
+              "lastName": "PayerLast",
+              "fspId": "ttkpm4mlreceiver"
+            },
+            "individualQuotes": [
+              {
+                "quoteId": "{$function.generic.generateUUID}",
+                "to": {
+                  "type": "CONSUMER",
+                  "idType": "MSISDN",
+                  "idValue": "48500002222",
+                  "fspId": "ttkpm4mlreceiver"
+                },
+                "amountType": "SEND",
+                "currency": "USD",
+                "amount": "10",
+                "transactionType": "TRANSFER",
+                "note": "test"
+              },
+              {
+                "quoteId": "{$function.generic.generateUUID}",
+                "to": {
+                  "type": "CONSUMER",
+                  "idType": "MSISDN",
+                  "idValue": "48500004444",
+                  "fspId": "ttkpm4mlreceiver"
+                },
+                "amountType": "SEND",
+                "currency": "USD",
+                "amount": "20",
+                "transactionType": "TRANSFER",
+                "note": "test"
+              }
+            ]
+          }
+        },
+        {
+          "id": 1,
+          "description": "Bulk Transfer",
+          "apiVersion": {
+            "minorVersion": 0,
+            "majorVersion": 1,
+            "type": "mojaloop_sdk_outbound_scheme_adapter",
+            "specFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/api_spec.yaml",
+            "callbackMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/callback_map.json",
+            "responseMapFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/response_map.json",
+            "jsfRefFile": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/mockRef.json",
+            "triggerTemplatesFolder": "spec_files/api_definitions/mojaloop_sdk_outbound_scheme_adapter_1.0/trigger_templates"
+          },
+          "operationPath": "/bulkTransfers",
+          "path": "/bulkTransfers",
+          "method": "post",
+          "body": {
+            "homeTransactionId": "{$prev.2.request.body.homeTransactionId}",
+            "bulkQuoteId": "{$prev.2.request.body.bulkQuoteId}",
+            "bulkTransferId": "{$function.generic.generateUUID}",
+            "from": {
+              "idType": "MSISDN",
+              "idValue": "123456789",
+              "type": "CONSUMER",
+              "displayName": "PayerFirst PayerLast",
+              "firstName": "PayerFirst",
+              "middleName": "Something",
+              "lastName": "PayerLast",
+              "fspId": "ttkpm4mlreceiver"
+            },
+            "individualTransfers": [
+              {
+                "transferId": "{$function.generic.generateUUID}",
+                "ilpPacket": "{$prev.2.response.body.individualQuoteResults[0].ilpPacket}",
+                "condition": "{$prev.2.response.body.individualQuoteResults[0].condition}",
+                "to": {
+                  "type": "CONSUMER",
+                  "idType": "MSISDN",
+                  "idValue": "48500002222",
+                  "fspId": "ttkpm4mlreceiver"
+                },
+                "amountType": "SEND",
+                "currency": "USD",
+                "transactionType": "TRANSFER",
+                "amount": "10",
+                "homeTransactionId": "{$function.generic.generateUUID}",
+                "note": "test"
+              },
+              {
+                "transferId": "{$function.generic.generateUUID}",
+                "ilpPacket": "{$prev.2.response.body.individualQuoteResults[1].ilpPacket}",
+                "condition": "{$prev.2.response.body.individualQuoteResults[1].condition}",
+                "to": {
+                  "type": "CONSUMER",
+                  "idType": "MSISDN",
+                  "idValue": "48500004444",
+                  "fspId": "ttkpm4mlreceiver"
+                },
+                "amountType": "SEND",
+                "currency": "USD",
+                "transactionType": "TRANSFER",
+                "amount": "20",
+                "homeTransactionId": "{$function.generic.generateUUID}",
+                "note": "test"
+              }
+            ]
+          },
+          "url": "http://ttkpm4mlsender-scheme-adapter:4001",
+          "disabled": false
+        }
+      ]
+    }
+  ]
+}

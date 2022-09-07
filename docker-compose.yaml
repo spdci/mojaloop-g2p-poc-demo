@@ -1,0 +1,96 @@
+version: "3.7"
+
+networks:
+  mojaloop-net:
+    name: mojaloop-net
+
+services:
+  sdk-scheme-adapter:
+    image: "mojaloop/sdk-scheme-adapter:v19.0.1"
+    container_name: sdk-scheme-adapter
+    env_file: ./payment-manager/sdk_scheme_adapter.env
+    # volumes:
+    #   - "./docker/secrets:/secrets"
+    #   - "./docker/jwsVerificationKeys:/jwsVerificationKeys"
+    ports:
+      - "4000:4000"
+      - "4001:4001"
+    networks:
+      - mojaloop-net
+    depends_on:
+      - redis
+      - ml-testing-toolkit
+    restart: always
+
+  redis:
+    container_name: redis
+    image: "redis:6.2.4-alpine"
+    networks:
+      - mojaloop-net
+    ports:
+      - "6379:6379"
+    restart: always
+
+  ml-testing-toolkit:
+    image: mojaloop/ml-testing-toolkit:v15.1.0
+    container_name: ml-testing-toolkit
+    volumes:
+      - "./ml-testing-toolkit/spec_files:/opt/app/spec_files"
+      # - "./ml-testing-toolkit/secrets:/opt/app/secrets"
+    environment:
+      TTK_SYSTEM_CONFIG: |-
+        {
+          "INIT_CONFIG": {
+            "objectStore": {
+              "partyInfo" : {
+                "provisionedParties": [
+                  {
+                      "displayName": "John Garcia",
+                      "firstName": "John",
+                      "lastName": "Garcia",
+                      "middleName": "H",
+                      "dateOfBirth": "1970-01-01",
+                      "idType": "MSISDN",
+                      "idValue": "987654321"
+                  }
+                ]
+              }
+            }
+          }
+        }
+    ports:
+      - "4040:4040"
+      - "5050:5050"
+    command: npm start
+    networks:
+      - mojaloop-net
+
+  ml-testing-toolkit-ui:
+    image: mojaloop/ml-testing-toolkit-ui:v15.0.0
+    container_name: ml-testing-toolkit-ui
+    ports:
+      - "6060:6060"
+    environment:
+      - API_BASE_URL=http://localhost:5050
+      - AUTH_ENABLED=FALSE
+      # - PAYEE_SIM_BRAND_ICON=data:image/jpeg;base64,
+    command:
+      - sh
+      - /usr/share/nginx/start.sh
+    depends_on:
+      - ml-testing-toolkit
+    networks:
+      - mojaloop-net
+
+  # cbs-simulator:
+  #   image: mojaloop/mojaloop-simulator:v12.0.0
+  #   networks:
+  #     - mojaloop-net
+  #   container_name: cbs-simulator
+  #   env_file: ./payment-manager/dfsp_backend.env
+  #   # volumes:
+  #   #    - ./payemnt-manager/dfsp_rules.json:/src/rules.json
+  #   ports:
+  #     - "9000:3000"
+  #     - "9002:3002"
+  #     - "9003:3003"

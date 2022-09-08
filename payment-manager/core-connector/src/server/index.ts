@@ -43,7 +43,7 @@ async function _create (config: ServiceConfig): Promise<Server> {
 }
 
 async function _start (server: Server): Promise<Server> {
-  Logger.info(`thirdparty-core-connector is running @ ${server.info.uri}`)
+  Logger.info(`core-connector is running @ ${server.info.uri}`)
   await server.start()
   
   return server

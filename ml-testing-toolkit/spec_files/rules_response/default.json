@@ -422,21 +422,26 @@
     "version": 1
   },
   {
-    "ruleId": 13,
+    "ruleId": 14,
     "priority": 1,
-    "description": "post /transfers",
+    "description": "post /quotes",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
       "type": "fspiop",
-      "asynchronous": true
+      "asynchronous": true,
+      "specFile": "spec_files/api_definitions/fspiop_1.0/api_spec.yaml",
+      "callbackMapFile": "spec_files/api_definitions/fspiop_1.0/callback_map.json",
+      "responseMapFile": "spec_files/api_definitions/fspiop_1.0/response_map.json",
+      "jsfRefFile": "spec_files/api_definitions/fspiop_1.0/mockRef.json",
+      "triggerTemplatesFolder": "spec_files/api_definitions/fspiop_1.0/trigger_templates"
     },
     "conditions": {
       "all": [
         {
           "fact": "operationPath",
           "operator": "equal",
-          "value": "/transfers"
+          "value": "/quotes"
         },
         {
           "fact": "method",
@@ -482,12 +487,12 @@
             "const creditDate = new Date(request.headers.date)",
             "const transaction = {",
             "  date: creditDate.getTime(),",
-            "  transferId: requestBody.transactionRequestId,",
+            "  transferId: requestBody.transactionId,",
             "  amount: requestBody.amount.amount,",
             "  currency: requestBody.amount.currency,",
             "  from: {",
-            "    idType: requestBody.payer.partyIdType,",
-            "    idValue: requestBody.payer.partyIdentifier",
+            "    idType: requestBody.payer.partyIdInfo.partyIdType,",
+            "    idValue: requestBody.payer.partyIdInfo.partyIdentifier",
             "  }",
             "}",
             "partyData.transactionHistory.push(transaction)",

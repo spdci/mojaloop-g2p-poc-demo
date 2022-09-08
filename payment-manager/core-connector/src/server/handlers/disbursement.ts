@@ -35,16 +35,16 @@ const disbursement = async (
     try {
       // Some aync communication here
       const mojaloopResponse = await SDKUtils.sendMoney(sendMoneyRequest)
-      const disbursementResponse = {
-        payeeInformation: mojaloopResponse.to,
-        transferId: mojaloopResponse.transferId,
-        currentState: mojaloopResponse.currentState,
-        initiatedTimestamp: mojaloopResponse.initiatedTimestamp,
-        completedTimestamp: mojaloopResponse.fulfil.body.completedTimestamp,
-        payeeFspCommission: mojaloopResponse.quoteResponse.body.payeeFspCommission,
-        payeeFspFee: mojaloopResponse.quoteResponse.body.payeeFspFee,
-        payeeReceiveAmount: mojaloopResponse.quoteResponse.body.payeeReceiveAmount
-      }
+      const disbursementResponse = mojaloopResponse.map(resp => ({
+        payeeInformation: resp.to,
+        transferId: resp.transferId,
+        currentState: resp.currentState,
+        initiatedTimestamp: resp.initiatedTimestamp,
+        completedTimestamp: resp.fulfil?.body.completedTimestamp,
+        payeeFspCommission: resp.quoteResponse?.body.payeeFspCommission,
+        payeeFspFee: resp.quoteResponse?.body.payeeFspFee,
+        payeeReceiveAmount: resp.quoteResponse?.body.payeeReceiveAmount
+      }));
       return h.response(disbursementResponse).code(200)
     } catch (err) {
       if (err instanceof ValidationError) {

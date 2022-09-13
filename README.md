@@ -10,126 +10,50 @@ This is to demo a G2P payment using the following components
 ### Deployment Instructions
 
 - Clone this repository
-- Run Payment Manager
+- Run all the services with docker-compose
   ```
-  cd thirdparty-sdk
+  cd mojaloop-g2p-poc-demo
   docker-compose up
   ```
 ---
-That's it, all the services are deployed.
+That's it, all the services will be deployed.
 
-### Have the following web pages ready to monitor the transaction
-- Run fhir4-mojaloop openhim mediator (You need to have node version v16.14.2 installed)
-- Payee mobile app simulator: Open the URL http://localhost:6060/payeemobile and login with username '987654321' and don't need password
+### Open the following web pages to monitor the transaction
 - Mojaloop Testing Toolkit Monitoring: Open the URL http://localhost:6060/admin/monitoring
 
-### Making a transfer and monitor the logs
+### Open first payee mobile app simulator
+- Payee mobile app simulator: Open the URL http://localhost:6060/payeemobile
+- You should see the mobile app simulator with logo `Pink Bank`
+- Login with username '987654321' and don't need password
+- Then you should see the message `Welcome Navya Agarwal`
+
+### Open second payee mobile app simulator in a separate browser tab / window
+- Payee mobile app simulator: Open the URL http://localhost:6061/payeemobile
+- You should see the mobile app simulator with logo `Green Bank`
+- Login with username '876543210' and don't need password
+- Then you should see the message `Welcome Arjun Varma`
+
+### Executing disbursement
 - Execute the following HTTP request either from command line or from postman.
   ```
-  curl --location --request POST 'http://localhost:5001/fhir-mojaloop/sendmoney/fhir4-invoice' --header 'Content-Type: application/json' --data-raw '{
-  "resourceType": "Invoice",
-  "id": "b88e5a38-35ad-4d8c-aad3-44b4ace8c0b1",
-  "identifier": [
-      {
-          "type": {
-              "coding": [
-                  {
-                      "system": "https://openimis.github.io/openimis_fhir_r4_ig/CodeSystem/openimis-identifiers",
-                      "code": "UUID"
-                  }
-              ]
-          },
-          "value": "b88e5a38-35ad-4d8c-aad3-44b4ace8c0b1"
-      },
-      {
-          "type": {
-              "coding": [
-                  {
-                      "system": "https://openimis.github.io/openimis_fhir_r4_ig/CodeSystem/openimis-identifiers",
-                      "code": "Code"
-                  }
-              ]
-          },
-          "value": "IV-UC-8156989548-105"
-      }
-  ],
-  "status": "active",
-  "type": {
-      "coding": [
-          {
-              "system": "https://openimis.github.io/openimis_fhir_r4_ig/CodeSystem/bill-type",
-              "code": "policy",
-              "display": "Policy"
-          }
-      ]
-  },
-  "recipient": {
-      "reference": "Patient/D944AFE5-F1A9-45D1-BE82-7BE28719A7E1",
-      "type": "Patient",
-      "identifier": {
-          "type": {
-              "coding": [
-                  {
-                      "system": "https://openimis.github.io/openimis_fhir_r4_ig/CodeSystem/openimis-identifiers",
-                      "code": "UUID"
-                  }
-              ]
-          },
-          "value": "D944AFE5-F1A9-45D1-BE82-7BE28719A7E1"
-      }
-  },
-  "date": "2022-04-22",
-  "lineItem": [
-      {
-          "chargeItemCodeableConcept": {
-              "coding": [
-                  {
-                      "system": "https://openimis.github.io/openimis_fhir_r4_ig/CodeSystem/bill-charge-item",
-                      "code": "policy",
-                      "display": "Policy"
-                  }
-              ]
-          },
-          "priceComponent": [
-              {
-                  "extension": [
-                      {
-                          "url": "https://openimis.github.io/openimis_fhir_r4_ig//StructureDefinition/unit-price",
-                          "valueMoney": {
-                              "value": 2390.0,
-                              "currency": "USD"
-                          }
-                      }
-                  ],
-                  "type": "base",
-                  "code": {
-                      "coding": [
-                          {
-                              "system": "Code",
-                              "code": "Code",
-                              "display": "IV-UC-8156989548-105"
-                          }
-                      ]
-                  },
-                  "factor": 1.0,
-                  "amount": {
-                      "value": 2390.0,
-                      "currency": "USD"
-                  }
-              }
-          ]
-      }
-  ],
-  "totalNet": {
-      "value": 2390.0,
-      "currency": "USD"
-  },
-  "totalGross": {
-      "value": 2390.0,
-      "currency": "USD"
-  }
-}'
+  curl --location --request POST 'http://localhost:3003/disbursement' --header 'Content-Type: application/json' --data-raw '{
+    "payerName": "PENSION",
+    "payeeList": [
+        {
+            "payeeIdType": "MSISDN",
+            "payeeIdValue": "987654321",
+            "amount": 2000,
+            "currency": "INR"
+        },
+        {
+            "payeeIdType": "MSISDN",
+            "payeeIdValue": "876543210",
+            "amount": 3000,
+            "currency": "INR"
+        }
+    ]
+  }'
   ```
-- You should get the 'Completed' status in the response and 'transactionRequestState' should be 'ACCEPTED' in the approveResponse body parameter.
-- You can check various requests and response in TTK UI http://localhost:6060
-- You should see the incoming notification in payee mobile app simulator
+- You should get the 'COMPLETED' status in the response.
+- You can check various requests and responses in TTK monitoring page
+- You should see the incoming notification in both payee mobile app simulators

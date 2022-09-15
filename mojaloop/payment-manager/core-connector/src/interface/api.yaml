@@ -3,7 +3,7 @@ info:
   title: Government Payment Manager Core Connector
   version: '1.0'
   description: >-
-    An API to perform a disbursements through mojaloop
+    An API to perform p2p transfers through mojaloop
   license:
     name: TBD
     url: TBD
@@ -143,13 +143,13 @@ components:
         currency: 
           type: string
           example: INR
-      description: Data model for Disbursement Request
+      description: Data model for SendMoney Request
     SendMoneyResponse:
       title: SendMoneyResponse
       type: object
       required:
-        - disbursementId
-        - payeeList
+        - transferId
+        - currentState
       properties:
         transferId: 
           type: string

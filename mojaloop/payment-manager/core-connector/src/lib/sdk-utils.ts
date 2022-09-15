@@ -19,50 +19,36 @@ import assert from 'assert'
 const transactionRequestId = 'b51ec534-ee48-4575-b6a9-ead2955b8069'
 
 const sendMoney = async (sendMoneyRequest: SendMoneyRequest) => {
-
-    let transferResponse = [];
-    for await (const payeeItem of sendMoneyRequest.payeeList) {
-      try {
-        const transferRequest = {
-          homeTransactionId: 'abc123',
-          from: {
-            idType: 'ACCOUNT_ID',
-            idValue: sendMoneyRequest.payerName,
-            displayName: 'Government'
-          },
-          to: {
-            idType: payeeItem.payeeIdType,
-            idValue: payeeItem.payeeIdValue
-          },
-          amountType: 'SEND',
-          currency: payeeItem.currency,
-          amount: payeeItem.amount,
-          transactionType: 'TRANSFER',
-          note: 'string'
-        }
-        const transferURI = `${Config.OUTBOUND_ENDPOINT}/transfers`
-        const resp = await axios.post<any>(transferURI, transferRequest)
-        assert.equal(resp.status, 200)
-        transferResponse.push(resp.data)
-      } catch(err: any) {
-        transferResponse.push({
-          error: err.response?.data || err.message          
-        })
-      }
-    }
-    return transferResponse
+  const transferRequest = {
+    homeTransactionId: 'abc123',
+    from: {
+      idType: sendMoneyRequest.payerIdType,
+      idValue: sendMoneyRequest.payerIdValue,
+      displayName: 'Government'
+    },
+    to: {
+      idType: sendMoneyRequest.payeeIdType,
+      idValue: sendMoneyRequest.payeeIdValue
+    },
+    amountType: 'SEND',
+    currency: sendMoneyRequest.currency,
+    amount: sendMoneyRequest.amount,
+    transactionType: 'TRANSFER',
+    note: 'string'
+  }
+  const transferURI = `${Config.OUTBOUND_ENDPOINT}/transfers`
+  const resp = await axios.post<any>(transferURI, transferRequest)
+  assert.equal(resp.status, 200)
+  return resp.data
 }
 
-interface PayeeItem {
+export interface SendMoneyRequest {
+  payerIdType: string;
+  payerIdValue: string;
   payeeIdType: string;
   payeeIdValue: string;
   amount: string;
   currency: string;
-}
-export interface SendMoneyRequest {
-  payerName: string;
-  payeeList: PayeeItem[];
-
 }
 
 export default {

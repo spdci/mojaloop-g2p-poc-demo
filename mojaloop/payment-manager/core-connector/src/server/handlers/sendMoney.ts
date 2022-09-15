@@ -24,7 +24,7 @@ interface InvoiceErrorResponse {
 }
 
 
-const disbursement = async (
+const sendMoney = async (
   _context: unknown,
   _request: Request,
   h: StateResponseToolkit
@@ -35,17 +35,17 @@ const disbursement = async (
     try {
       // Some aync communication here
       const mojaloopResponse = await SDKUtils.sendMoney(sendMoneyRequest)
-      const disbursementResponse = mojaloopResponse.map(resp => ({
-        payeeInformation: resp.to,
-        transferId: resp.transferId,
-        currentState: resp.currentState,
-        initiatedTimestamp: resp.initiatedTimestamp,
-        completedTimestamp: resp.fulfil?.body.completedTimestamp,
-        payeeFspCommission: resp.quoteResponse?.body.payeeFspCommission,
-        payeeFspFee: resp.quoteResponse?.body.payeeFspFee,
-        payeeReceiveAmount: resp.quoteResponse?.body.payeeReceiveAmount
-      }));
-      return h.response(disbursementResponse).code(200)
+      const sendMoneyResponse = {
+        payeeInformation: mojaloopResponse.to,
+        transferId: mojaloopResponse.transferId,
+        currentState: mojaloopResponse.currentState,
+        initiatedTimestamp: mojaloopResponse.initiatedTimestamp,
+        completedTimestamp: mojaloopResponse.fulfil?.body.completedTimestamp,
+        payeeFspCommission: mojaloopResponse.quoteResponse?.body.payeeFspCommission,
+        payeeFspFee: mojaloopResponse.quoteResponse?.body.payeeFspFee,
+        payeeReceiveAmount: mojaloopResponse.quoteResponse?.body.payeeReceiveAmount
+      }
+      return h.response(sendMoneyResponse).code(200)
     } catch (err) {
       if (err instanceof ValidationError) {
         const errorResponse: InvoiceErrorResponse = {
@@ -65,5 +65,5 @@ const disbursement = async (
 }
 
 export default {
-  disbursement
+  sendMoney
 }

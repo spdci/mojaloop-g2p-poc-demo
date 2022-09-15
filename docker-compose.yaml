@@ -8,7 +8,7 @@ services:
   core-connector:
     image: core-connector:local
     build:
-      context: ./payment-manager/core-connector
+      context: ./mojaloop/payment-manager/core-connector
     networks:
       - mojaloop-net
     container_name: core-connector
@@ -20,7 +20,7 @@ services:
   sdk-scheme-adapter:
     image: "mojaloop/sdk-scheme-adapter:v19.0.1"
     container_name: sdk-scheme-adapter
-    env_file: ./payment-manager/sdk_scheme_adapter.env
+    env_file: ./mojaloop/payment-manager/sdk_scheme_adapter.env
     # volumes:
     #   - "./docker/secrets:/secrets"
     #   - "./docker/jwsVerificationKeys:/jwsVerificationKeys"
@@ -47,8 +47,8 @@ services:
     image: mojaloop/ml-testing-toolkit:v15.1.0
     container_name: ml-testing-toolkit
     volumes:
-      - "./ml-testing-toolkit/spec_files:/opt/app/spec_files"
-      # - "./ml-testing-toolkit/secrets:/opt/app/secrets"
+      - "./mojaloop/ml-testing-toolkit/spec_files:/opt/app/spec_files"
+      # - "./mojaloop/ml-testing-toolkit/secrets:/opt/app/secrets"
     environment:
       TTK_SYSTEM_CONFIG: |-
         {
@@ -125,7 +125,7 @@ services:
   #   networks:
   #     - mojaloop-net
   #   container_name: cbs-simulator
-  #   env_file: ./payment-manager/dfsp_backend.env
+  #   env_file: ./mojaloop/payment-manager/dfsp_backend.env
   #   # volumes:
   #   #    - ./payemnt-manager/dfsp_rules.json:/src/rules.json
   #   ports:

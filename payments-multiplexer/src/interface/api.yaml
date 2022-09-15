@@ -1,9 +1,9 @@
 openapi: 3.0.2
 info:
-  title: Government Payment Manager Core Connector
+  title: Payments Multiplexer
   version: '1.0'
   description: >-
-    An API to perform a disbursements through mojaloop
+    An API to perform a disbursements through various payment execution systems
   license:
     name: TBD
     url: TBD
@@ -39,11 +39,11 @@ paths:
         '503':
           $ref: '#/components/responses/503'
 
-  /disbursement:
+  /disbursementCheck:
     post:
-      operationId: Disbursement
+      operationId: DisbursementCheck
       description: >-
-        This request is used initiate a third-party transfer in mojaloop.
+        This request is used check the feasibility of a disbursement.
       requestBody:
         content:
           application/json:
@@ -52,7 +52,81 @@ paths:
         required: true
       responses:
         '200':
-          $ref: '#/components/responses/200'
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisbursementCheckResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '406':
+          $ref: '#/components/responses/406'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+
+  /disbursement:
+    post:
+      operationId: Disbursement
+      description: >-
+        This request is used initiate a disbursement.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DisbursementRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisbursementResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '406':
+          $ref: '#/components/responses/406'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
+  /disbursement/{disbursementId}:
+    get:
+      operationId: GetDisbursement
+      description: >-
+        This request is used get the status of a disbursement.
+      parameters:
+      - name: disbursementId
+        in: path
+        description: disbursementId
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DisbursementResponse'
         '400':
           $ref: '#/components/responses/400'
         '401':
@@ -116,12 +190,12 @@ components:
       title: DisbursementRequest
       type: object
       required:
-        - payerName
+        - disbursementId
         - payeeList
       properties:
-        payerName: 
+        disbursementId: 
           type: string
-          example: 1234567890
+          example: f2957f7a-34c3-11ed-a261-0242ac120002
         payeeList:
           type: array
           minItems: 1
@@ -130,6 +204,42 @@ components:
             $ref: '#/components/schemas/IndividualPayee'
       description: Data model for Disbursement Request
 
+    DisbursementResponse:
+      title: DisbursementResponse
+      type: object
+      required:
+        - disbursementId
+        - payeeList
+      properties:
+        disbursementId: 
+          type: string
+          example: f2957f7a-34c3-11ed-a261-0242ac120002
+        results:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          items:
+            $ref: '#/components/schemas/IndividualPayeeResult'
+      description: Data model for Disbursement Response
+  
+    DisbursementCheckResponse:
+      title: DisbursementResponse
+      type: object
+      required:
+        - disbursementId
+        - payeeList
+      properties:
+        disbursementId: 
+          type: string
+          example: f2957f7a-34c3-11ed-a261-0242ac120002
+        results:
+          type: array
+          minItems: 1
+          maxItems: 1000
+          items:
+            $ref: '#/components/schemas/IndividualPayeeCheckResult'
+      description: Data model for Disbursement Check Response
+
     IndividualPayee:
       title: IndividualPayee
       type: object
@@ -137,16 +247,78 @@ components:
       properties:
         payeeIdType: 
           type: string
-          example: MSISDN
+          example: ADHAR
         payeeIdValue: 
           type: string
-          example: 9876543210
+          example: 5000-0000-1234
         amount: 
           type: string
           example: 100
         currency: 
           type: string
           example: INR
+      required:
+        - payeeIdType
+        - payeeIdValue
+        - amount
+        - currency
+    IndividualPayeeResult:
+      title: IndividualPayeeResult
+      type: object
+      description: Data model for the complex type IndividualPayeeResult.
+      allOf:
+        - $ref: '#/components/schemas/IndividualPayee'
+        - type: object
+          properties:
+            result: 
+              type: object
+              properties:          
+                status: 
+                  type: string
+                  example: COMPLETED
+                timestamp:
+                  type: string
+                  example: 2012-04-23T18:25:43.511Z
+      required:
+        - payeeIdType
+        - payeeIdValue
+        - amount
+        - currency
+    IndividualPayeeCheckResult:
+      title: IndividualPayeeResult
+      type: object
+      description: Data model for the complex type IndividualPayeeResult.
+      allOf:
+        - $ref: '#/components/schemas/IndividualPayee'
+        - type: object
+          properties:
+            result: 
+              type: object
+              properties:
+                feasibility: 
+                  type: string
+                  example: PASS
+                fromBankId: 
+                  type: string
+                  example: HDFC000123
+                fromBankAccNo: 
+                  type: string
+                  example: 000123456789
+                toBankId: 
+                  type: string
+                  example: AXIS000321
+                toBankAccNo: 
+                  type: string
+                  example: 000987654321
+                payeeName: 
+                  type: string
+                  example: Vijay Kumar G
+                fee: 
+                  type: string
+                  example: 5
+                timestamp:
+                  type: string
+                  example: 2012-04-23T18:25:43.511Z
       required:
         - payeeIdType
         - payeeIdValue

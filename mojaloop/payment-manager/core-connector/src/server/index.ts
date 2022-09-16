@@ -16,6 +16,7 @@
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference path="../../ambient.d.ts"/>
 import { Server } from '@hapi/hapi'
+import * as Path from 'path'
 import { ServiceConfig } from '../shared/config'
 import extensions from './extensions'
 import plugins from './plugins'
@@ -36,6 +37,9 @@ async function _create (config: ServiceConfig): Promise<Server> {
       cors: {
         origin: config.CORS_WHITELIST,
         credentials: config.ALLOW_CREDENTIALS
+      },
+      files: {
+        relativeTo: Path.join(__dirname, '..')
       }
     }
   })

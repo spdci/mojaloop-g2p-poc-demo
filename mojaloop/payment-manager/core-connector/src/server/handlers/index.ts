@@ -15,12 +15,14 @@
 import { Util } from '@mojaloop/central-services-shared'
 import Health from './health'
 import SendMoney from './sendMoney'
+import PayabilityCheck from './payabilityCheck'
 
 const OpenapiBackend = Util.OpenapiBackend
 
 export default {
   HealthGet: Health.get,
   SendMoney: SendMoney.sendMoney,
+  PayabilityCheck: PayabilityCheck.payabilityCheck,
   validationFail: OpenapiBackend.validationFail,
   notFound: OpenapiBackend.notFound,
   methodNotAllowed: OpenapiBackend.methodNotAllowed

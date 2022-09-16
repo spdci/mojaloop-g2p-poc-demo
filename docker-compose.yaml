@@ -49,6 +49,7 @@ services:
     volumes:
       - "./mojaloop/ml-testing-toolkit/spec_files:/opt/app/spec_files"
       # - "./mojaloop/ml-testing-toolkit/secrets:/opt/app/secrets"
+    user: root
     environment:
       TTK_SYSTEM_CONFIG: |-
         {

@@ -37,7 +37,6 @@ const plugin = {
       method: 'GET',
       path: '/interface/{file*}',
       handler: function (request: Hapi.Request, h: Hapi.ResponseToolkit) {
-        console.log(request.params.file)
         return h.file(`interface/${request.params.file}`);
       }
     });

@@ -1,1 +1,50 @@
-[]
+[
+  {
+    "ruleId": 1,
+    "priority": 1,
+    "description": "get /parties/{Type}/{ID}",
+    "apiVersion": {
+      "minorVersion": 1,
+      "majorVersion": 1,
+      "type": "fspiop",
+      "asynchronous": true,
+      "specFile": "spec_files/api_definitions/fspiop_1.1/api_spec.yaml",
+      "callbackMapFile": "spec_files/api_definitions/fspiop_1.1/callback_map.json",
+      "responseMapFile": "spec_files/api_definitions/fspiop_1.1/response_map.json",
+      "jsfRefFile": "spec_files/api_definitions/fspiop_1.1/mockRef.json",
+      "triggerTemplatesFolder": "spec_files/api_definitions/fspiop_1.1/trigger_templates"
+    },
+    "conditions": {
+      "all": [
+        {
+          "fact": "pathParams",
+          "operator": "equal",
+          "value": "9988776655",
+          "path": "ID"
+        },
+        {
+          "fact": "operationPath",
+          "operator": "equal",
+          "value": "/parties/{Type}/{ID}"
+        },
+        {
+          "fact": "method",
+          "operator": "equal",
+          "value": "get"
+        }
+      ]
+    },
+    "event": {
+      "method": "put",
+      "path": "/parties/{Type}/{ID}/error",
+      "params": {
+        "scripts": {
+          "scriptingEngine": "postman"
+        }
+      },
+      "type": "MOCK_ERROR_CALLBACK"
+    },
+    "type": "validation",
+    "version": 1
+  }
+]

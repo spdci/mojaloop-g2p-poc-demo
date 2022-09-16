@@ -73,6 +73,40 @@ paths:
           $ref: '#/components/responses/501'
         '503':
           $ref: '#/components/responses/503'
+  /payabilityCheck:
+    post:
+      operationId: PayabilityCheck
+      description: >-
+        This request is used check the payability in mojaloop.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PayabilityCheckRequest'
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayabilityCheckResponse'
+        '400':
+          $ref: '#/components/responses/400'
+        '401':
+          $ref: '#/components/responses/401'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '405':
+          $ref: '#/components/responses/405'
+        '406':
+          $ref: '#/components/responses/406'
+        '501':
+          $ref: '#/components/responses/501'
+        '503':
+          $ref: '#/components/responses/503'
 
 components:
   responses:
@@ -173,5 +207,46 @@ components:
           type: string
           example: 100
       description: Data model for SendMoney Response
+    PayabilityCheckRequest:
+      title: PayabilityCheckRequest
+      type: object
+      required:
+        - payeeIdType
+        - payeeIdValue
+        - amount
+        - currency
+      properties:
+        payerIdType: 
+          type: string
+          example: MSISDN
+        payerIdValue: 
+          type: string
+          example: 1234567890
+        payeeIdType: 
+          type: string
+          example: MSISDN
+        payeeIdValue: 
+          type: string
+          example: 9876543210
+        amount: 
+          type: string
+          example: 100
+        currency: 
+          type: string
+          example: INR
+      description: Data model for PayabilityCheck Request
+    PayabilityCheckResponse:
+      title: PayabilityCheckResponse
+      type: object
+      required:
+        - isPayable
+        - partyResponse
+      properties:
+        isPayable: 
+          type: boolean
+          example: true
+        partyResponse: 
+          type: object
+      description: Data model for PayabilityCheck Response
 
 

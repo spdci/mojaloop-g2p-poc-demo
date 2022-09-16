@@ -42,6 +42,13 @@ const sendMoney = async (sendMoneyRequest: SendMoneyRequest) => {
   return resp.data
 }
 
+const discovery = async (discoveryRequest: DiscoveryRequest) => {
+  const discoveryURI = `${Config.OUTBOUND_ENDPOINT}/parties/${discoveryRequest.payeeIdType}/${discoveryRequest.payeeIdValue}`
+  const resp = await axios.get<any>(discoveryURI)
+  assert.equal(resp.status, 200)
+  return resp.data
+}
+
 export interface SendMoneyRequest {
   payerIdType: string;
   payerIdValue: string;
@@ -50,7 +57,12 @@ export interface SendMoneyRequest {
   amount: string;
   currency: string;
 }
+export interface DiscoveryRequest {
+  payeeIdType: string;
+  payeeIdValue: string;
+}
 
 export default {
-  sendMoney
+  sendMoney,
+  discovery
 }

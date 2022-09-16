@@ -28,6 +28,30 @@
         "payeeIdType": "MSISDN",
         "payeeIdValue": "987654321"
       }
+    },
+    {
+      "payeeIdType": "ADHAR",
+      "payeeIdValue": "6000-0000-4321",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "Government",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "876543210"
+      }
+    },
+    {
+      "payeeIdType": "ADHAR",
+      "payeeIdValue": "1000-0000-1111",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "Government",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "9988776655"
+      }
     }
   ]
 }

@@ -16,9 +16,8 @@ import { StateResponseToolkit } from '~/server/plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
 import MojaloopUtils from '../../lib/mojaloop-utils'
-import { MojaloopSendMoneyRequest } from '../../lib/mojaloop-utils'
+import { MojaloopPayabilityCheckRequest } from '../../lib/mojaloop-utils'
 import MapUtils from '../../lib/map-utils'
-import { ObjectStore } from '../../lib/obj-store'
 
 interface PayeeItem {
   payeeIdType: string;
@@ -26,30 +25,30 @@ interface PayeeItem {
   amount: string;
   currency: string;
 }
-interface DisbursementRequest {
-  disbursementId: string;
+interface DisbursementCheckRequest {
   note: string;
   payeeList: PayeeItem[];
 }
 
 interface PayeeResultItem extends PayeeItem {
-  isSuccess: Boolean;
+  isPayable: Boolean;
   paymentExecutionSystem?: string | undefined;
   paymentExecutionSystemInfo?: any | undefined;
   result: any;
 }
-interface DisbursementResult {
+
+interface DisbursementCheckResult {
   payeeResults: PayeeResultItem[];
 }
 
-const postDisbursement = async (
+const disbursementCheck = async (
   _context: unknown,
   _request: Request,
   h: StateResponseToolkit
 ): Promise<ResponseObject> => {
   try {
     const payeeResults: PayeeResultItem[] = []
-    const disbursementRequest = _request.payload as DisbursementRequest
+    const disbursementRequest = _request.payload as DisbursementCheckRequest
     for await (const payeeItem of disbursementRequest.payeeList) {
       try {
         const mapInfo = await MapUtils.getPayeeAccountInformation({
@@ -59,7 +58,7 @@ const postDisbursement = async (
         const paymentExecutionSystemInfo = mapInfo.paymentExecutionSystemInfo
         switch(mapInfo.paymentExecutionSystem) {
           case 'MOJALOOP': {
-            const sendMoneyRequest : MojaloopSendMoneyRequest = {
+            const payabilityCheckRequest : MojaloopPayabilityCheckRequest = {
               payerDfspId: paymentExecutionSystemInfo.payerDfspId,
               payerIdType: paymentExecutionSystemInfo.payerIdType,
               payerIdValue: paymentExecutionSystemInfo.payerIdValue,
@@ -68,23 +67,17 @@ const postDisbursement = async (
               amount: payeeItem.amount,
               currency: payeeItem.currency
             }
-            const mojaloopResponse = await MojaloopUtils.sendMoney(sendMoneyRequest)
-            const disbursementResponseItem = {
-              payeeInformation: mojaloopResponse.payeeInformation,
-              transferId: mojaloopResponse.transferId,
-              currentState: mojaloopResponse.currentState,
-              initiatedTimestamp: mojaloopResponse.initiatedTimestamp,
-              completedTimestamp: mojaloopResponse.completedTimestamp,
-              payeeFspCommission: mojaloopResponse.payeeFspCommission,
-              payeeFspFee: mojaloopResponse.payeeFspFee,
-              payeeReceiveAmount: mojaloopResponse.payeeReceiveAmount
+            const mojaloopResponse = await MojaloopUtils.checkPayability(payabilityCheckRequest)
+            const disbursementCheckResponseItem = {
+              payeeInformation: mojaloopResponse.partyResponse,
+              error: mojaloopResponse.error
             }
             payeeResults.push({
               ...payeeItem,
               paymentExecutionSystem: mapInfo.paymentExecutionSystem,
               paymentExecutionSystemInfo,
-              isSuccess: true,
-              result: disbursementResponseItem
+              isPayable: mojaloopResponse.isPayable,
+              result: disbursementCheckResponseItem
             })
             break;
           }
@@ -92,11 +85,11 @@ const postDisbursement = async (
             throw(new Error(`Unsupported payment execution system ${mapInfo.paymentExecutionSystem}`))
           }
         }
-      } catch (err) {
+      } catch (err: any) {
         if (err instanceof ValidationError) {
           payeeResults.push({
             ...payeeItem,
-            isSuccess: false,
+            isPayable: false,
             result: {
               errors: err.validationErrors
             }
@@ -104,16 +97,14 @@ const postDisbursement = async (
         } else {
           payeeResults.push({
             ...payeeItem,
-            isSuccess: false,
+            isPayable: false,
             result: {
-              errors: [ err ]
+              errors: [ err.message ]
             }
           })
         }
       }
     }
-    const obj = ObjectStore.getInstance()
-    obj.data[disbursementRequest.disbursementId] = { payeeResults }
     return h.response({ payeeResults }).code(200)
   } catch (e) {
     h.getLogger().error(e)
@@ -122,5 +113,5 @@ const postDisbursement = async (
 }
 
 export default {
-  postDisbursement
+  disbursementCheck
 }

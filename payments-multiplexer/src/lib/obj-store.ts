@@ -12,20 +12,20 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { Util } from '@mojaloop/central-services-shared'
-import Health from './health'
-import Disbursement from './disbursement'
-import DisbursementCheck from './disbursementCheck'
-import GetDisbursement from './getDisbursement'
+export class ObjectStore {
+    private static instance: ObjectStore;
 
-const OpenapiBackend = Util.OpenapiBackend
+    constructor() {
+        if (ObjectStore.instance) {
+            throw new Error("Error - use ObjectStore.getInstance()");
+        }
+        this.data = {};
+    }
 
-export default {
-  HealthGet: Health.get,
-  Disbursement: Disbursement.postDisbursement,
-  DisbursementCheck: DisbursementCheck.disbursementCheck,
-  GetDisbursement: GetDisbursement.getDisbursement,
-  validationFail: OpenapiBackend.validationFail,
-  notFound: OpenapiBackend.notFound,
-  methodNotAllowed: OpenapiBackend.methodNotAllowed
+    static getInstance(): ObjectStore {
+        ObjectStore.instance = ObjectStore.instance || new ObjectStore();
+        return ObjectStore.instance;
+    }
+
+    data: any;
 }

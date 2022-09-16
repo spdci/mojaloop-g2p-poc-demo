@@ -15,42 +15,42 @@
 import { StateResponseToolkit } from '~/server/plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
-import SDKUtils from '../../lib/sdk-utils'
-import { DiscoveryRequest } from '../../lib/sdk-utils'
+import MojaloopUtils from '../../lib/mojaloop-utils'
+import { MojaloopSendMoneyRequest } from '../../lib/mojaloop-utils'
+import MapUtils from '../../lib/map-utils'
+import { ObjectStore } from '../../lib/obj-store'
 
+interface PayeeItem {
+  payeeIdType: string;
+  payeeIdValue: string;
+  amount: string;
+  currency: string;
+}
 
-const payabilityCheck = async (
+interface PayeeResultItem extends PayeeItem {
+  isSuccess: Boolean;
+  paymentExecutionSystem?: string | undefined;
+  paymentExecutionSystemInfo?: any | undefined;
+  result: any;
+}
+interface DisbursementResult {
+  payeeResults: PayeeResultItem[];
+}
+
+const getDisbursement = async (
   _context: unknown,
   _request: Request,
   h: StateResponseToolkit
 ): Promise<ResponseObject> => {
   try {
-    const discoveryRequest : DiscoveryRequest = {
-      payeeIdType: (<any>_request.payload).payeeIdType,
-      payeeIdValue: (<any>_request.payload).payeeIdValue
-    }
-    const discoveryResponse = await SDKUtils.discovery(discoveryRequest)
-    if (discoveryResponse.party?.body?.partyIdInfo?.fspId) {
-      return h.response({
-        isPayable: true,
-        partyResponse: discoveryResponse.party.body
-      }).code(200)      
-    } else {
-      return h.response({
-        isPayable: false,
-        error: 'Party not found'
-      }).code(200)        
-    }
-    
-  } catch (e: any) {
-    h.getLogger().error(e)    
-    return h.response({
-      isPayable: false,
-      error: e.message
-    }).code(200)
+    const obj = ObjectStore.getInstance()
+    return h.response(obj.data[_request.params.disbursementId]).code(200)
+  } catch (e) {
+    h.getLogger().error(e)
+    return h.response().code(500)
   }
 }
 
 export default {
-  payabilityCheck
+  getDisbursement
 }

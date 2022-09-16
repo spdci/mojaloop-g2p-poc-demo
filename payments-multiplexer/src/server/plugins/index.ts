@@ -26,10 +26,10 @@ async function register (server: Server): Promise<Server> {
   const openapiBackend = await OpenAPI.initialize()
   const plugins = [
     StatePlugin,
-    ApiDoc,
     Util.Hapi.OpenapiBackendValidator,
     openapiBackend,
     Inert,
+    ApiDoc,
     Vision,
     ErrorHandling,
     Util.Hapi.HapiEventPlugin

@@ -36,8 +36,9 @@ That's it, all the services will be deployed.
 ### Executing disbursement
 - Execute the following HTTP request either from command line or from postman.
   ```
-  curl --location --request POST 'http://localhost:3003/disbursement' --header 'Content-Type: application/json' --data-raw '{
-    "payerName": "PENSION",
+  curl --location --request POST 'http://localhost:3001/disbursement' --header 'Content-Type: application/json' --data-raw '{
+    "disbursementId": "f2957f7a-34c3-11ed-a261-0242ac120002",
+    "note": "PENSION",
     "payeeList": [
         {
             "payeeIdType": "MSISDN",

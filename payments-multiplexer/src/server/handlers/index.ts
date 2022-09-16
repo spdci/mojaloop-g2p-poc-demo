@@ -20,7 +20,8 @@ const OpenapiBackend = Util.OpenapiBackend
 
 export default {
   HealthGet: Health.get,
-  Disbursement: Disbursement.disbursement,
+  Disbursement: Disbursement.postDisbursement,
+  DisbursementCheck: Disbursement.disbursementCheck,
   validationFail: OpenapiBackend.validationFail,
   notFound: OpenapiBackend.notFound,
   methodNotAllowed: OpenapiBackend.methodNotAllowed

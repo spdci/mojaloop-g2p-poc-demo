@@ -25,9 +25,17 @@ export interface ServiceConfig {
   CORS_WHITELIST: string[];
   ALLOW_CREDENTIALS: boolean;
 
-  OUTBOUND_ENDPOINT: string;
-  BACKEND_ENDPOINT: string;
+  MOJALOOP_CONNECTION_INFO: {
+    dfspId: string;
+    endpoint: string;
+  }[];
   REQUEST_TIMEOUT: number;
+  PAYEE_RESOLUTION_MAP: {
+    payeeIdType: string;
+    payeeIdValue: string;
+    paymentExecutionSystem: 'MOJALOOP' | 'NEFT' | 'UPI' | 'IMPS';
+    paymentExecutionSystemInfo: any;
+  }[];
 }
 
 const RC = parse(rc('GOV_CORE_CONNECTOR', Config)) as ServiceConfig

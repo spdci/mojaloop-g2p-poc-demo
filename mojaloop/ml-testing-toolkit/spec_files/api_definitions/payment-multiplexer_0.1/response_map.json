@@ -1,0 +1,11 @@
+{
+  "/disbursement": {
+    "post": {
+      "response": {
+        "bodyOverride": {
+          "disbursementId": "{$request.body.disbursementId}"
+        }
+      }
+    }
+  }
+}

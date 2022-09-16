@@ -15,49 +15,179 @@
 import { StateResponseToolkit } from '~/server/plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
-import SDKUtils from '../../lib/sdk-utils'
-import { SendMoneyRequest } from '../../lib/sdk-utils'
+import MojaloopUtils from '../../lib/mojaloop-utils'
+import { MojaloopSendMoneyRequest, MojaloopPayabilityCheckRequest } from '../../lib/mojaloop-utils'
+import MapUtils from '../../lib/map-utils'
 
-interface InvoiceErrorResponse {
-  isProcessed: boolean;
-  errors: string[];
+interface PayeeItem {
+  payeeIdType: string;
+  payeeIdValue: string;
+  amount: string;
+  currency: string;
+}
+interface DisbursementRequest {
+  note: string;
+  payeeList: PayeeItem[];
 }
 
+interface PayeeResultItem extends PayeeItem {
+  isSuccess: Boolean;
+  paymentExecutionSystem?: string | undefined;
+  paymentExecutionSystemInfo?: any | undefined;
+  result: any;
+}
+interface DisbursementResult {
+  payeeResults: PayeeResultItem[];
+}
 
-const disbursement = async (
+const postDisbursement = async (
   _context: unknown,
   _request: Request,
   h: StateResponseToolkit
 ): Promise<ResponseObject> => {
   try {
-    const response = {}
-    const sendMoneyRequest : SendMoneyRequest = <SendMoneyRequest>_request.payload
-    try {
-      // Some aync communication here
-      const mojaloopResponse = await SDKUtils.sendMoney(sendMoneyRequest)
-      const disbursementResponse = mojaloopResponse.map(resp => ({
-        payeeInformation: resp.to,
-        transferId: resp.transferId,
-        currentState: resp.currentState,
-        initiatedTimestamp: resp.initiatedTimestamp,
-        completedTimestamp: resp.fulfil?.body.completedTimestamp,
-        payeeFspCommission: resp.quoteResponse?.body.payeeFspCommission,
-        payeeFspFee: resp.quoteResponse?.body.payeeFspFee,
-        payeeReceiveAmount: resp.quoteResponse?.body.payeeReceiveAmount
-      }));
-      return h.response(disbursementResponse).code(200)
-    } catch (err) {
-      if (err instanceof ValidationError) {
-        const errorResponse: InvoiceErrorResponse = {
-          isProcessed: false,
-          errors: err.validationErrors
+    const payeeResults: PayeeResultItem[] = []
+    const disbursementRequest = _request.payload as DisbursementRequest
+    for await (const payeeItem of disbursementRequest.payeeList) {
+      try {
+        const mapInfo = await MapUtils.getPayeeAccountInformation({
+          payeeIdType: payeeItem.payeeIdType,
+          payeeIdValue: payeeItem.payeeIdValue
+        })
+        const paymentExecutionSystemInfo = mapInfo.paymentExecutionSystemInfo
+        switch(mapInfo.paymentExecutionSystem) {
+          case 'MOJALOOP': {
+            const sendMoneyRequest : MojaloopSendMoneyRequest = {
+              payerDfspId: paymentExecutionSystemInfo.payerDfspId,
+              payerIdType: paymentExecutionSystemInfo.payerIdType,
+              payerIdValue: paymentExecutionSystemInfo.payerIdValue,
+              payeeIdType: paymentExecutionSystemInfo.payeeIdType,
+              payeeIdValue: paymentExecutionSystemInfo.payeeIdValue,
+              amount: payeeItem.amount,
+              currency: payeeItem.currency
+            }
+            const mojaloopResponse = await MojaloopUtils.sendMoney(sendMoneyRequest)
+            const disbursementResponseItem = {
+              payeeInformation: mojaloopResponse.payeeInformation,
+              transferId: mojaloopResponse.transferId,
+              currentState: mojaloopResponse.currentState,
+              initiatedTimestamp: mojaloopResponse.initiatedTimestamp,
+              completedTimestamp: mojaloopResponse.completedTimestamp,
+              payeeFspCommission: mojaloopResponse.payeeFspCommission,
+              payeeFspFee: mojaloopResponse.payeeFspFee,
+              payeeReceiveAmount: mojaloopResponse.payeeReceiveAmount
+            }
+            payeeResults.push({
+              ...payeeItem,
+              paymentExecutionSystem: mapInfo.paymentExecutionSystem,
+              paymentExecutionSystemInfo,
+              isSuccess: true,
+              result: disbursementResponseItem
+            })
+            break;
+          }
+          default: {
+            throw(new Error(`Unsupported payment execution system ${mapInfo.paymentExecutionSystem}`))
+          }
         }
-        return h.response(errorResponse).code(406)
-      } else {
-        throw err
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          payeeResults.push({
+            ...payeeItem,
+            isSuccess: false,
+            result: {
+              errors: err.validationErrors
+            }
+          })
+        } else {
+          payeeResults.push({
+            ...payeeItem,
+            isSuccess: false,
+            result: {
+              errors: [ err ]
+            }
+          })
+        }
       }
     }
-    return h.response(response).code(200)
+    return h.response({ payeeResults }).code(200)
+  } catch (e) {
+    h.getLogger().error(e)
+    return h.response().code(500)
+  }
+}
+
+const disbursementCheck = async (
+  _context: unknown,
+  _request: Request,
+  h: StateResponseToolkit
+): Promise<ResponseObject> => {
+  try {
+    const payeeResults: PayeeResultItem[] = []
+    const disbursementRequest = _request.payload as DisbursementRequest
+    for await (const payeeItem of disbursementRequest.payeeList) {
+      try {
+        const mapInfo = await MapUtils.getPayeeAccountInformation({
+          payeeIdType: payeeItem.payeeIdType,
+          payeeIdValue: payeeItem.payeeIdValue
+        })
+        const paymentExecutionSystemInfo = mapInfo.paymentExecutionSystemInfo
+        switch(mapInfo.paymentExecutionSystem) {
+          case 'MOJALOOP': {
+            const payabilityCheckRequest : MojaloopPayabilityCheckRequest = {
+              payerDfspId: paymentExecutionSystemInfo.payerDfspId,
+              payerIdType: paymentExecutionSystemInfo.payerIdType,
+              payerIdValue: paymentExecutionSystemInfo.payerIdValue,
+              payeeIdType: paymentExecutionSystemInfo.payeeIdType,
+              payeeIdValue: paymentExecutionSystemInfo.payeeIdValue,
+              amount: payeeItem.amount,
+              currency: payeeItem.currency
+            }
+            const mojaloopResponse = await MojaloopUtils.checkPayability(payabilityCheckRequest)
+            const disbursementResponseItem = {
+              payeeInformation: mojaloopResponse.payeeInformation,
+              transferId: mojaloopResponse.transferId,
+              currentState: mojaloopResponse.currentState,
+              initiatedTimestamp: mojaloopResponse.initiatedTimestamp,
+              completedTimestamp: mojaloopResponse.completedTimestamp,
+              payeeFspCommission: mojaloopResponse.payeeFspCommission,
+              payeeFspFee: mojaloopResponse.payeeFspFee,
+              payeeReceiveAmount: mojaloopResponse.payeeReceiveAmount
+            }
+            payeeResults.push({
+              ...payeeItem,
+              paymentExecutionSystem: mapInfo.paymentExecutionSystem,
+              paymentExecutionSystemInfo,
+              isSuccess: true,
+              result: disbursementResponseItem
+            })
+            break;
+          }
+          default: {
+            throw(new Error(`Unsupported payment execution system ${mapInfo.paymentExecutionSystem}`))
+          }
+        }
+      } catch (err) {
+        if (err instanceof ValidationError) {
+          payeeResults.push({
+            ...payeeItem,
+            isSuccess: false,
+            result: {
+              errors: err.validationErrors
+            }
+          })
+        } else {
+          payeeResults.push({
+            ...payeeItem,
+            isSuccess: false,
+            result: {
+              errors: [ err ]
+            }
+          })
+        }
+      }
+    }
+    return h.response({ payeeResults }).code(200)
   } catch (e) {
     h.getLogger().error(e)
     return h.response().code(500)
@@ -65,5 +195,6 @@ const disbursement = async (
 }
 
 export default {
-  disbursement
+  disbursementCheck,
+  postDisbursement
 }

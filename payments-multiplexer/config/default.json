@@ -1,5 +1,5 @@
 {
-  "LISTEN_PORT": 3003,
+  "LISTEN_PORT": 3001,
   "HOST": "0.0.0.0",
   "CORS_WHITELIST": [
     "http://localhost:3000",
@@ -9,7 +9,25 @@
     "http://localhost:8081"
   ],
   "ALLOW_CREDENTIALS": false,
-  "OUTBOUND_ENDPOINT" : "http://localhost:4001",
-  "BACKEND_ENDPOINT" : "",
-  "REQUEST_TIMEOUT" : 2000
+  "MOJALOOP_CONNECTION_INFO" : [
+    {
+      "dfspId": "GovtBankA",
+      "endpoint": "http://localhost:3003"
+    }
+  ],
+  "REQUEST_TIMEOUT" : 2000,
+  "PAYEE_RESOLUTION_MAP": [
+    {
+      "payeeIdType": "ADHAR",
+      "payeeIdValue": "5000-0000-1234",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "Government",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "987654321"
+      }
+    }
+  ]
 }

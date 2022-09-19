@@ -206,6 +206,25 @@ components:
           items:
             $ref: '#/components/schemas/IndividualPayee'
       description: Data model for Disbursement Request
+      example: |-
+        {
+          "disbursementId": "f2957f7a-34c3-11ed-a261-0242ac120002",
+          "note": "PENSION",
+          "payeeList": [
+            {
+              "payeeIdType": "AADHAAR",
+              "payeeIdValue": "5000-0000-1234",
+              "amount": 100,
+              "currency": "INR"
+            },
+            {
+              "payeeIdType": "MOBILE",
+              "payeeIdValue": "8765432101",
+              "amount": 100,
+              "currency": "INR"
+            }
+          ]
+        }
 
     DisbursementResponse:
       title: DisbursementResponse

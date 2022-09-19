@@ -7,7 +7,7 @@
     "payerIdType": "ACCOUNT_ID",
     "payerIdValue": "PENSION",
     "payeeIdType": "MSISDN",
-    "payeeIdValue": "987654321",
+    "payeeIdValue": "9876543210",
     "amount": "2000",
     "currency": "INR"
   }'

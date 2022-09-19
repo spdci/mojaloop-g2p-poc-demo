@@ -250,7 +250,7 @@ components:
       properties:
         payeeIdType: 
           type: string
-          example: ADHAR
+          example: AADHAAR
         payeeIdValue: 
           type: string
           example: 5000-0000-1234

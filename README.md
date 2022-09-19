@@ -24,13 +24,13 @@ That's it, all the services will be deployed.
 ### Open first payee mobile app simulator
 - Payee mobile app simulator: Open the URL http://localhost:6060/payeemobile
 - You should see the mobile app simulator with logo `Pink Bank`
-- Login with username '987654321' and don't need password
+- Login with username '9876543210' and don't need password
 - Then you should see the message `Welcome Navya Agarwal`
 
 ### Open second payee mobile app simulator in a separate browser tab / window
 - Payee mobile app simulator: Open the URL http://localhost:6061/payeemobile
 - You should see the mobile app simulator with logo `Green Bank`
-- Login with username '876543210' and don't need password
+- Login with username '8765432101' and don't need password
 - Then you should see the message `Welcome Arjun Varma`
 
 ### Executing disbursement
@@ -42,13 +42,13 @@ That's it, all the services will be deployed.
     "payeeList": [
         {
             "payeeIdType": "MSISDN",
-            "payeeIdValue": "987654321",
+            "payeeIdValue": "9876543210",
             "amount": 2000,
             "currency": "INR"
         },
         {
             "payeeIdType": "MSISDN",
-            "payeeIdValue": "876543210",
+            "payeeIdValue": "8765432101",
             "amount": 3000,
             "currency": "INR"
         }

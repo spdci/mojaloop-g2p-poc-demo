@@ -18,37 +18,48 @@
   "REQUEST_TIMEOUT" : 2000,
   "PAYEE_RESOLUTION_MAP": [
     {
-      "payeeIdType": "ADHAR",
+      "payeeIdType": "AADHAAR",
       "payeeIdValue": "5000-0000-1234",
       "paymentExecutionSystem": "MOJALOOP",
       "paymentExecutionSystemInfo": {
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
-        "payerIdValue": "Government",
+        "payerIdValue": "GOV/00001234",
         "payeeIdType": "MSISDN",
-        "payeeIdValue": "987654321"
+        "payeeIdValue": "9876543210"
       }
     },
     {
-      "payeeIdType": "ADHAR",
-      "payeeIdValue": "6000-0000-4321",
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "8765432101",
       "paymentExecutionSystem": "MOJALOOP",
       "paymentExecutionSystemInfo": {
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
-        "payerIdValue": "Government",
+        "payerIdValue": "GOV/00001234",
         "payeeIdType": "MSISDN",
-        "payeeIdValue": "876543210"
+        "payeeIdValue": "8765432101"
       }
     },
     {
-      "payeeIdType": "ADHAR",
+      "payeeIdType": "BANKACC",
+      "payeeIdValue": "NEFT/HDFC0002/0005123456789",
+      "paymentExecutionSystem": "NEFT",
+      "paymentExecutionSystemInfo": {
+        "payerBankBranchCode": "HDFC0001",
+        "payerBankAcc": "0004123456001",
+        "payeeBankIFSC": "HDFC0002",
+        "payeeBankAcc": "0005123456789"
+      }
+    },
+    {
+      "payeeIdType": "AADHAAR",
       "payeeIdValue": "1000-0000-1111",
       "paymentExecutionSystem": "MOJALOOP",
       "paymentExecutionSystemInfo": {
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
-        "payerIdValue": "Government",
+        "payerIdValue": "GOV/00001234",
         "payeeIdType": "MSISDN",
         "payeeIdValue": "9988776655"
       }

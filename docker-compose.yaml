@@ -5,6 +5,18 @@ networks:
     name: mojaloop-net
 
 services:
+  payments-multiplexer:
+    image: payments-multiplexer:local
+    build:
+      context: ./payments-multiplexer
+    networks:
+      - mojaloop-net
+    container_name: payments-multiplexer
+    volumes:
+      - "./payments-multiplexer/config/default.json:/opt/app/dist/config/default.json"
+    ports:
+      - "3001:3001"
+
   core-connector:
     image: core-connector:local
     build:

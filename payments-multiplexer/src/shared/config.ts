@@ -38,7 +38,7 @@ export interface ServiceConfig {
   }[];
 }
 
-const RC = parse(rc('GOV_CORE_CONNECTOR', Config)) as ServiceConfig
+const RC = parse(rc('GOV_PAYMENTS_MULTIPLEXER', Config)) as ServiceConfig
 
 export default {
   ...RC,

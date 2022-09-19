@@ -4,7 +4,7 @@
   "description": "Payments Multiplexer service",
   "main": "build/index.js",
   "scripts": {
-    "build": "tsc -p ./tsconfig.build.json; rm -rf dist/src/interface; cp -R src/interface dist/src/interface; cp -R config dist/config;",
+    "build": "tsc -p ./tsconfig.build.json; rm -rf dist/src/interface; cp -R src/interface dist/src/interface; cp -R src/server/static-files dist/src/server/static-files; cp -R config dist/config;",
     "watch": "npx tsc -w",
     "clean": "rm -rf dist node_modules",
     "start": "npm run start:no-build",

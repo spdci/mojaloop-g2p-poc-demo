@@ -15,7 +15,7 @@
 import Config from '../shared/config'
 
 const getPayeeAccountInformation = async (payeeAccountInformationRequest: GetPayeeAccountInformationRequest) => {
-  const mappedInfo = Config.PAYEE_RESOLUTION_MAP.find(item => item.payeeIdType === payeeAccountInformationRequest.payeeIdType && item.payeeIdValue === payeeAccountInformationRequest.payeeIdValue)
+  const mappedInfo = Config.PAYEE_RESOLUTION_MAP.find(item => item.payeeIdType === payeeAccountInformationRequest.payeeIdType && item.payeeIdValue == payeeAccountInformationRequest.payeeIdValue)
   if(mappedInfo) {
     return mappedInfo
   } else {

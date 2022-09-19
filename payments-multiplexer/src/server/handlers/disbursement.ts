@@ -92,7 +92,8 @@ const postDisbursement = async (
             throw(new Error(`Unsupported payment execution system ${mapInfo.paymentExecutionSystem}`))
           }
         }
-      } catch (err) {
+      } catch (err: any) {
+        console.log(err.message)
         if (err instanceof ValidationError) {
           payeeResults.push({
             ...payeeItem,
@@ -106,7 +107,7 @@ const postDisbursement = async (
             ...payeeItem,
             isSuccess: false,
             result: {
-              errors: [ err ]
+              errors: [ err.message ]
             }
           })
         }

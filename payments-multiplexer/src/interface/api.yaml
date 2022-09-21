@@ -212,14 +212,14 @@ components:
           "note": "PENSION",
           "payeeList": [
             {
-              "payeeIdType": "AADHAAR",
-              "payeeIdValue": "5000-0000-1234",
+              "payeeIdType": "NATIONAL_ID",
+              "payeeIdValue": "345678912",
               "amount": 100,
               "currency": "INR"
             },
             {
-              "payeeIdType": "MOBILE",
-              "payeeIdValue": "8765432101",
+              "payeeIdType": "NATIONAL_ID",
+              "payeeIdValue": "562591356",
               "amount": 100,
               "currency": "INR"
             }
@@ -269,7 +269,7 @@ components:
       properties:
         payeeIdType: 
           type: string
-          example: AADHAAR
+          example: NATIONAL_ID
         payeeIdValue: 
           type: string
           example: 5000-0000-1234

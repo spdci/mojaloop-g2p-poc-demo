@@ -124,6 +124,114 @@
         "payeeIdType": "MSISDN",
         "payeeIdValue": "260719737473"
       }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737479",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737479"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737471",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737471"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737472",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737472"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737476",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737476"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737477",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737477"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737478",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737478"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737479",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737479"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737475",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737475"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737473",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "MSISDN",
+        "payeeIdValue": "260719737473"
+      }
     }
   ]
 }

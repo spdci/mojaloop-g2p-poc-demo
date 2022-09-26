@@ -254,7 +254,7 @@ components:
         disbursementId: 
           type: string
           example: f2957f7a-34c3-11ed-a261-0242ac120002
-        results:
+        payeeResults:
           type: array
           minItems: 1
           maxItems: 1000
@@ -292,15 +292,33 @@ components:
         - $ref: '#/components/schemas/IndividualPayee'
         - type: object
           properties:
+            isSuccess: 
+              type: boolean
+              example: true
+            paymentExecutionSystem:
+              type: string
+              description: Type of payment execution system.
+              example: MOJALOOP
+            paymentExecutionSystemInfo:
+              type: object
+              description: Payment execution system specific information of payee for making a payment.
+              example:
+                payerDfspId: GovtBank
+                payerIdType: ACCOUNT_ID
+                payerIdValue: GOV/00001234
+                payeeIdType: MSISDN
+                payeeIdValue: 9876543210
+            timestamp:
+              type: string
+              example: 2012-04-23T18:25:43.511Z
             result: 
               type: object
-              properties:          
-                status: 
-                  type: string
-                  example: COMPLETED
-                timestamp:
-                  type: string
-                  example: 2012-04-23T18:25:43.511Z
+              description: Payment execution system specific result.
+            errors:
+              type: array
+              items:
+                type: string
+                description: error description.
       required:
         - payeeIdType
         - payeeIdValue
@@ -314,33 +332,34 @@ components:
         - $ref: '#/components/schemas/IndividualPayee'
         - type: object
           properties:
+            isPayable: 
+              type: boolean
+              example: true
+            paymentExecutionSystem:
+              type: string
+              description: Type of payment execution system.
+              example: MOJALOOP
+            paymentExecutionSystemInfo:
+              type: object
+              description: Payment execution system specific information of payee for making a payment.
+              example:
+                payerDfspId: GovtBank
+                payerIdType: ACCOUNT_ID
+                payerIdValue: GOV/00001234
+                payeeIdType: MSISDN
+                payeeIdValue: 9876543210
+            timestamp:
+              type: string
+              example: 2012-04-23T18:25:43.511Z
             result: 
               type: object
-              properties:
-                feasibility: 
-                  type: string
-                  example: PASS
-                fromBankId: 
-                  type: string
-                  example: HDFC000123
-                fromBankAccNo: 
-                  type: string
-                  example: 000123456789
-                toBankId: 
-                  type: string
-                  example: AXIS000321
-                toBankAccNo: 
-                  type: string
-                  example: 000987654321
-                payeeName: 
-                  type: string
-                  example: Vijay Kumar G
-                fee: 
-                  type: string
-                  example: 5
-                timestamp:
-                  type: string
-                  example: 2012-04-23T18:25:43.511Z
+              description: Payment execution system specific result.
+            errors:
+              type: array
+              items:
+                type: string
+                description: error description.
+
       required:
         - payeeIdType
         - payeeIdValue

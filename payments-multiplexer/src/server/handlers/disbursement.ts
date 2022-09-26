@@ -19,6 +19,7 @@ import MojaloopUtils from '../../lib/mojaloop-utils'
 import { MojaloopSendMoneyRequest } from '../../lib/mojaloop-utils'
 import MapUtils from '../../lib/map-utils'
 import { ObjectStore } from '../../lib/obj-store'
+import { request } from 'http'
 
 interface PayeeItem {
   payeeIdType: string;
@@ -34,11 +35,14 @@ interface DisbursementRequest {
 
 interface PayeeResultItem extends PayeeItem {
   isSuccess: Boolean;
+  timestamp: string;
   paymentExecutionSystem?: string | undefined;
   paymentExecutionSystemInfo?: any | undefined;
-  result: any;
+  result?: any;
+  errors?: string[];
 }
 interface DisbursementResult {
+  disbursementId: string;
   payeeResults: PayeeResultItem[];
 }
 
@@ -84,6 +88,7 @@ const postDisbursement = async (
               paymentExecutionSystem: mapInfo.paymentExecutionSystem,
               paymentExecutionSystemInfo,
               isSuccess: true,
+              timestamp: new Date().toISOString(),
               result: disbursementResponseItem
             })
             break;
@@ -98,24 +103,26 @@ const postDisbursement = async (
           payeeResults.push({
             ...payeeItem,
             isSuccess: false,
-            result: {
-              errors: err.validationErrors
-            }
+            timestamp: new Date().toISOString(),
+            errors: err.validationErrors
           })
         } else {
           payeeResults.push({
             ...payeeItem,
             isSuccess: false,
-            result: {
-              errors: [ err.message ]
-            }
+            timestamp: new Date().toISOString(),
+            errors: [ err.message ]
           })
         }
       }
     }
     const obj = ObjectStore.getInstance()
-    obj.data[disbursementRequest.disbursementId] = { payeeResults }
-    return h.response({ payeeResults }).code(200)
+    const resp: DisbursementResult = {
+      disbursementId: disbursementRequest.disbursementId,
+      payeeResults
+    }
+    obj.data[disbursementRequest.disbursementId] = resp
+    return h.response(resp).code(200)
   } catch (e) {
     h.getLogger().error(e)
     return h.response().code(500)

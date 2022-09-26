@@ -32,9 +32,11 @@ interface DisbursementCheckRequest {
 
 interface PayeeResultItem extends PayeeItem {
   isPayable: Boolean;
+  timestamp: string;
   paymentExecutionSystem?: string | undefined;
   paymentExecutionSystemInfo?: any | undefined;
-  result: any;
+  result?: any;
+  errors?: string[];
 }
 
 interface DisbursementCheckResult {
@@ -77,6 +79,7 @@ const disbursementCheck = async (
               paymentExecutionSystem: mapInfo.paymentExecutionSystem,
               paymentExecutionSystemInfo,
               isPayable: mojaloopResponse.isPayable,
+              timestamp: new Date().toISOString(),
               result: disbursementCheckResponseItem
             })
             break;
@@ -90,6 +93,7 @@ const disbursementCheck = async (
           payeeResults.push({
             ...payeeItem,
             isPayable: false,
+            timestamp: new Date().toISOString(),
             result: {
               errors: err.validationErrors
             }
@@ -98,9 +102,8 @@ const disbursementCheck = async (
           payeeResults.push({
             ...payeeItem,
             isPayable: false,
-            result: {
-              errors: [ err.message ]
-            }
+            timestamp: new Date().toISOString(),
+            errors: [ err.message ]
           })
         }
       }

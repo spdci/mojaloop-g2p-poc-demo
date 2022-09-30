@@ -25,8 +25,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737479"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "974737917062"
       }
     },
     {
@@ -37,8 +37,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737471"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "174737917062"
       }
     },
     {
@@ -49,8 +49,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737472"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "274737917062"
       }
     },
     {
@@ -61,8 +61,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737476"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "674737917062"
       }
     },
     {
@@ -73,8 +73,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737477"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "774737917062"
       }
     },
     {
@@ -85,8 +85,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737478"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "874737917062"
       }
     },
     {
@@ -97,8 +97,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737479"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "974737917062"
       }
     },
     {
@@ -109,8 +109,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737475"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "574737917062"
       }
     },
     {
@@ -121,8 +121,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737473"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "374737917062"
       }
     },
     {
@@ -133,8 +133,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737479"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "974737917062"
       }
     },
     {
@@ -145,8 +145,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737471"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "174737917062"
       }
     },
     {
@@ -157,8 +157,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737472"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "274737917062"
       }
     },
     {
@@ -169,8 +169,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737476"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "674737917062"
       }
     },
     {
@@ -181,8 +181,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737477"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "774737917062"
       }
     },
     {
@@ -193,8 +193,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737478"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "874737917062"
       }
     },
     {
@@ -205,8 +205,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737479"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "974737917062"
       }
     },
     {
@@ -217,8 +217,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737475"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "574737917062"
       }
     },
     {
@@ -229,8 +229,8 @@
         "payerDfspId": "GovtBankA",
         "payerIdType": "ACCOUNT_ID",
         "payerIdValue": "GOV/00001234",
-        "payeeIdType": "MSISDN",
-        "payeeIdValue": "260719737473"
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "374737917062"
       }
     }
   ]

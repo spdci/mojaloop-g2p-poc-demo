@@ -2,7 +2,7 @@
   {
     "ruleId": 51,
     "priority": 1,
-    "description": "GET PARTY 260719737479",
+    "description": "GET PARTY 974737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -14,7 +14,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737479",
+          "value": "974737917062",
           "path": "ID"
         },
         {
@@ -68,7 +68,7 @@
   {
     "ruleId": 52,
     "priority": 1,
-    "description": "GET PARTY 260719737471",
+    "description": "GET PARTY 174737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -80,7 +80,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737471",
+          "value": "174737917062",
           "path": "ID"
         },
         {
@@ -108,7 +108,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -134,7 +134,7 @@
   {
     "ruleId": 53,
     "priority": 1,
-    "description": "GET PARTY 260719737472",
+    "description": "GET PARTY 274737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -146,7 +146,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737472",
+          "value": "274737917062",
           "path": "ID"
         },
         {
@@ -174,7 +174,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -200,7 +200,7 @@
   {
     "ruleId": 54,
     "priority": 1,
-    "description": "GET PARTY 260719737476",
+    "description": "GET PARTY 674737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -212,7 +212,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737476",
+          "value": "674737917062",
           "path": "ID"
         },
         {
@@ -240,7 +240,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -266,7 +266,7 @@
   {
     "ruleId": 55,
     "priority": 1,
-    "description": "GET PARTY 260719737477",
+    "description": "GET PARTY 774737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -278,7 +278,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737477",
+          "value": "774737917062",
           "path": "ID"
         },
         {
@@ -306,7 +306,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -332,7 +332,7 @@
   {
     "ruleId": 56,
     "priority": 1,
-    "description": "GET PARTY 260719737478",
+    "description": "GET PARTY 874737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -372,7 +372,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -398,7 +398,7 @@
   {
     "ruleId": 57,
     "priority": 1,
-    "description": "GET PARTY 260719737479",
+    "description": "GET PARTY 974737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -438,7 +438,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -464,7 +464,7 @@
   {
     "ruleId": 58,
     "priority": 1,
-    "description": "GET PARTY 260719737475",
+    "description": "GET PARTY 574737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -476,7 +476,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737475",
+          "value": "574737917062",
           "path": "ID"
         },
         {
@@ -504,7 +504,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,
@@ -530,7 +530,7 @@
   {
     "ruleId": 59,
     "priority": 1,
-    "description": "GET PARTY 260719737473",
+    "description": "GET PARTY 374737917062",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -542,7 +542,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737473",
+          "value": "374737917062",
           "path": "ID"
         },
         {
@@ -570,7 +570,7 @@
             "partyIdInfo": {
               "fspId": "greenbankfsp",
               "extensionList": null,
-              "partySubIdOrType": null              
+              "partySubIdOrType": null
             },
             "merchantClassificationCode": null,
             "name": null,

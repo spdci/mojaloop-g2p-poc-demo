@@ -596,7 +596,7 @@
   {
     "ruleId": 60,
     "priority": 1,
-    "description": "GET PARTY 260719737490",
+    "description": "GET PARTY 987234987239",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -608,7 +608,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719737490",
+          "value": "987234987239",
           "path": "ID"
         },
         {
@@ -662,7 +662,7 @@
   {
     "ruleId": 61,
     "priority": 1,
-    "description": "GET PARTY 260719373961",
+    "description": "GET PARTY 289372346748",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -674,7 +674,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719373961",
+          "value": "289372346748",
           "path": "ID"
         },
         {
@@ -728,7 +728,7 @@
   {
     "ruleId": 62,
     "priority": 1,
-    "description": "GET PARTY 260719373954",
+    "description": "GET PARTY 934578263287",
     "apiVersion": {
       "minorVersion": 0,
       "majorVersion": 1,
@@ -740,7 +740,7 @@
         {
           "fact": "pathParams",
           "operator": "equal",
-          "value": "260719373954",
+          "value": "934578263287",
           "path": "ID"
         },
         {

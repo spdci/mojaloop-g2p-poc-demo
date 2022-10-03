@@ -126,6 +126,42 @@
       }
     },
     {
+      "payeeIdType": "NATIONAL_ID",
+      "payeeIdValue": "372591700",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "987234987239"
+      }
+    },
+    {
+      "payeeIdType": "NATIONAL_ID",
+      "payeeIdValue": "372591852",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "289372346748"
+      }
+    },
+    {
+      "payeeIdType": "NATIONAL_ID",
+      "payeeIdValue": "456123789",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "934578263287"
+      }
+    },
+    {
       "payeeIdType": "MOBILE",
       "payeeIdValue": "260719737479",
       "paymentExecutionSystem": "MOJALOOP",
@@ -231,6 +267,42 @@
         "payerIdValue": "GOV/00001234",
         "payeeIdType": "ACCOUNT_ID",
         "payeeIdValue": "374737913773"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719737490",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "987234987239"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719373961",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "289372346748"
+      }
+    },
+    {
+      "payeeIdType": "MOBILE",
+      "payeeIdValue": "260719373954",
+      "paymentExecutionSystem": "MOJALOOP",
+      "paymentExecutionSystemInfo": {
+        "payerDfspId": "GovtBankA",
+        "payerIdType": "ACCOUNT_ID",
+        "payerIdValue": "GOV/00001234",
+        "payeeIdType": "ACCOUNT_ID",
+        "payeeIdValue": "934578263287"
       }
     }
   ]

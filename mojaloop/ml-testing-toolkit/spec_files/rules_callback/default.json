@@ -594,6 +594,204 @@
     "version": 1
   },
   {
+    "ruleId": 60,
+    "priority": 1,
+    "description": "GET PARTY 260719737490",
+    "apiVersion": {
+      "minorVersion": 0,
+      "majorVersion": 1,
+      "type": "fspiop",
+      "asynchronous": true
+    },
+    "conditions": {
+      "all": [
+        {
+          "fact": "pathParams",
+          "operator": "equal",
+          "value": "260719737490",
+          "path": "ID"
+        },
+        {
+          "fact": "operationPath",
+          "operator": "equal",
+          "value": "/parties/{Type}/{ID}"
+        },
+        {
+          "fact": "method",
+          "operator": "equal",
+          "value": "get"
+        }
+      ]
+    },
+    "event": {
+      "method": "put",
+      "path": "/parties/{Type}/{ID}",
+      "params": {
+        "headers": {
+          "Content-Type": "application/vnd.interoperability.parties+json;version=1.0",
+          "FSPIOP-Source": "greenbankfsp"
+        },
+        "body": {
+          "party": {
+            "partyIdInfo": {
+              "fspId": "greenbankfsp",
+              "extensionList": null,
+              "partySubIdOrType": null
+            },
+            "merchantClassificationCode": null,
+            "name": null,
+            "personalInfo": {
+              "complexName": {
+                "firstName": "Mala",
+                "middleName": null,
+                "lastName": "Verma"
+              },
+              "dateOfBirth": "1947-08-15"
+            }
+          }
+        },
+        "scripts": {
+          "scriptingEngine": "postman"
+        }
+      },
+      "type": "MOCK_CALLBACK"
+    },
+    "type": "callback",
+    "version": 1
+  },
+  {
+    "ruleId": 61,
+    "priority": 1,
+    "description": "GET PARTY 260719373961",
+    "apiVersion": {
+      "minorVersion": 0,
+      "majorVersion": 1,
+      "type": "fspiop",
+      "asynchronous": true
+    },
+    "conditions": {
+      "all": [
+        {
+          "fact": "pathParams",
+          "operator": "equal",
+          "value": "260719373961",
+          "path": "ID"
+        },
+        {
+          "fact": "operationPath",
+          "operator": "equal",
+          "value": "/parties/{Type}/{ID}"
+        },
+        {
+          "fact": "method",
+          "operator": "equal",
+          "value": "get"
+        }
+      ]
+    },
+    "event": {
+      "method": "put",
+      "path": "/parties/{Type}/{ID}",
+      "params": {
+        "headers": {
+          "Content-Type": "application/vnd.interoperability.parties+json;version=1.0",
+          "FSPIOP-Source": "greenbankfsp"
+        },
+        "body": {
+          "party": {
+            "partyIdInfo": {
+              "fspId": "greenbankfsp",
+              "extensionList": null,
+              "partySubIdOrType": null
+            },
+            "merchantClassificationCode": null,
+            "name": null,
+            "personalInfo": {
+              "complexName": {
+                "firstName": "John",
+                "middleName": null,
+                "lastName": "Doe"
+              },
+              "dateOfBirth": "1946-12-01"
+            }
+          }
+        },
+        "scripts": {
+          "scriptingEngine": "postman"
+        }
+      },
+      "type": "MOCK_CALLBACK"
+    },
+    "type": "callback",
+    "version": 1
+  },
+  {
+    "ruleId": 62,
+    "priority": 1,
+    "description": "GET PARTY 260719373954",
+    "apiVersion": {
+      "minorVersion": 0,
+      "majorVersion": 1,
+      "type": "fspiop",
+      "asynchronous": true
+    },
+    "conditions": {
+      "all": [
+        {
+          "fact": "pathParams",
+          "operator": "equal",
+          "value": "260719373954",
+          "path": "ID"
+        },
+        {
+          "fact": "operationPath",
+          "operator": "equal",
+          "value": "/parties/{Type}/{ID}"
+        },
+        {
+          "fact": "method",
+          "operator": "equal",
+          "value": "get"
+        }
+      ]
+    },
+    "event": {
+      "method": "put",
+      "path": "/parties/{Type}/{ID}",
+      "params": {
+        "headers": {
+          "Content-Type": "application/vnd.interoperability.parties+json;version=1.0",
+          "FSPIOP-Source": "greenbankfsp"
+        },
+        "body": {
+          "party": {
+            "partyIdInfo": {
+              "fspId": "greenbankfsp",
+              "extensionList": null,
+              "partySubIdOrType": null
+            },
+            "merchantClassificationCode": null,
+            "name": null,
+            "personalInfo": {
+              "complexName": {
+                "firstName": "Jennifer",
+                "middleName": null,
+                "lastName": "Doe"
+              },
+              "dateOfBirth": "1948-11-01"
+            }
+          }
+        },
+        "scripts": {
+          "scriptingEngine": "postman"
+        }
+      },
+      "type": "MOCK_CALLBACK"
+    },
+    "type": "callback",
+    "version": 1
+  },
+  {
     "ruleId": 30,
     "priority": 1,
     "description": "ttkpayeefsp PUT Notifications Failure Test-case due to invalid FSPIOP-Destination",

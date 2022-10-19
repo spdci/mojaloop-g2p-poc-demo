@@ -280,10 +280,10 @@ components:
       title: DisbursementResponse
       type: object
       required:
-        - disbursementId
+        - requestId
         - payeeList
       properties:
-        disbursementId: 
+        requestId: 
           type: string
           example: f2957f7a-34c3-11ed-a261-0242ac120002
         payeeResults:

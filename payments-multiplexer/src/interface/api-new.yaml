@@ -268,7 +268,7 @@ components:
         disbursementId: 
           type: string
           example: f2957f7a-34c3-11ed-a261-0242ac120002
-        results:
+        payeeResults:
           type: array
           minItems: 1
           maxItems: 1000

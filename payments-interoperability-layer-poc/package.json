@@ -1,7 +1,7 @@
 {
-  "name": "gov-payments-multiplexer",
+  "name": "payments-interoperability-layer",
   "version": "0.0.1",
-  "description": "Payments Multiplexer service",
+  "description": "Payments Interoperability Layer PoC Service",
   "main": "build/index.js",
   "scripts": {
     "build": "tsc -p ./tsconfig.build.json; rm -rf dist/src/interface; cp -R src/interface dist/src/interface; cp -R src/server/static-files dist/src/server/static-files; cp -R config dist/config;",

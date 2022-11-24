@@ -12,6 +12,10 @@
     "pattern": "Smith|Jones|Johnson|Lee|Brown|Williams|Rodriguez|Garcia|Gonzalez|Lopez"
   },
   {
+    "id": "party.name",
+    "faker": "name.firstName"
+  },
+  {
     "id": "party.personalInfo.dateOfBirth",
     "pattern": "^(19)\\d\\d[-](0[1-9]|1[012])[-](0[1-9]|[12][0-9]|2[0-8])$"
   },

@@ -39,6 +39,8 @@ const getDisbursement = async (
   h: StateResponseToolkit
 ): Promise<ResponseObject> => {
   try {
+    // TODO: In real implementation, the reconciliation of the disbursements can be from the caching / a persistent data base
+    // For PoC, we are using inmemory implementation of the data store to retrieve the data about past disbursements.
     const obj = ObjectStore.getInstance()
     return h.response(obj.data[_request.params.disbursementId]).code(200)
   } catch (e) {

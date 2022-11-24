@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import ServiceServer from './pil-api-adapter/server'
+import APIAdapterService from './pil-api-adapter/server'
 
 // Setup & start API server
-ServiceServer.run()
+APIAdapterService.run()

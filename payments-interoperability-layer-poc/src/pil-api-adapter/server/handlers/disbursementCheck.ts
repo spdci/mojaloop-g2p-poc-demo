@@ -32,9 +32,8 @@ interface DisbursementCheckRequest {
 interface PayeeResultItem extends PayeeItem {
   isPayable: Boolean;
   timestamp: string;
-  paymentExecutionSystem?: string | undefined;
-  paymentExecutionSystemInfo?: any | undefined;
-  result?: any;
+  name?: string | undefined;
+  dateOfBirth?: string | undefined;
   errors?: string[];
 }
 
@@ -70,9 +69,7 @@ const disbursementCheck = async (
               payerIdType: paymentExecutionSystemInfo.payerIdType,
               payerIdValue: paymentExecutionSystemInfo.payerIdValue,
               payeeIdType: paymentExecutionSystemInfo.payeeIdType,
-              payeeIdValue: paymentExecutionSystemInfo.payeeIdValue,
-              amount: payeeItem.amount,
-              currency: payeeItem.currency
+              payeeIdValue: paymentExecutionSystemInfo.payeeIdValue
             }
             const mojaloopResponse = await PaymentMultiplexer.checkPayability(payabilityCheckRequest)
             const disbursementCheckResponseItem = {
@@ -81,11 +78,10 @@ const disbursementCheck = async (
             }
             payeeResults.push({
               ...payeeItem,
-              paymentExecutionSystem: mapInfo.paymentExecutionSystem,
-              paymentExecutionSystemInfo,
               isPayable: mojaloopResponse.isPayable,
               timestamp: new Date().toISOString(),
-              result: disbursementCheckResponseItem
+              name: mojaloopResponse.partyResponse?.name,
+              dateOfBirth: mojaloopResponse.partyResponse?.personalInfo?.dateOfBirth,
             })
             break;
           }
@@ -99,9 +95,7 @@ const disbursementCheck = async (
             ...payeeItem,
             isPayable: false,
             timestamp: new Date().toISOString(),
-            result: {
-              errors: err.validationErrors
-            }
+            errors: err.validationErrors
           })
         } else {
           payeeResults.push({

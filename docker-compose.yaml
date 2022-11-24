@@ -5,17 +5,19 @@ networks:
     name: g2p-poc-net
 
 services:
-  payments-interoperability-layer-poc:
-    image: payments-interoperability-layer-poc:local
-    build:
-      context: ./payments-interoperability-layer-poc
-    networks:
-      - g2p-poc-net
-    container_name: payments-interoperability-layer-poc
-    volumes:
-      - "./payments-interoperability-layer-poc/config:/opt/app/dist/config"
-    ports:
-      - "3001:3001"
+  # payments-interoperability-layer-poc:
+  #   image: payments-interoperability-layer-poc:local
+  #   build:
+  #     context: ./payments-interoperability-layer-poc
+  #   networks:
+  #     - g2p-poc-net
+  #   container_name: payments-interoperability-layer-poc
+  #   environment:
+  #     - PIL_PAYMENT_MULTIPLEXER_MOJALOOP_CONNECTION_INFO__endpoint=http://core-connector:3003
+  #   volumes:
+  #     - "./payments-interoperability-layer-poc/config:/opt/app/dist/config"
+  #   ports:
+  #     - "3001:3001"
 
   core-connector:
     image: core-connector:local

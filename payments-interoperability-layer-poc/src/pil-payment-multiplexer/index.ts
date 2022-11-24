@@ -59,8 +59,6 @@ export interface MojaloopPayabilityCheckRequest {
   payerIdValue: string;
   payeeIdType: string;
   payeeIdValue: string;
-  amount: string;
-  currency: string;
 }
 
 export default {

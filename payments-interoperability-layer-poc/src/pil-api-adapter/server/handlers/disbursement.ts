@@ -32,11 +32,10 @@ interface DisbursementRequest {
 }
 
 interface PayeeResultItem extends PayeeItem {
-  isSuccess: Boolean;
   timestamp: string;
-  paymentExecutionSystem?: string | undefined;
-  paymentExecutionSystemInfo?: any | undefined;
-  result?: any;
+  status: string;
+  amountDebited?: string | undefined;
+  amountCredited?: string | undefined;
   errors?: string[];
 }
 interface DisbursementResult {
@@ -89,11 +88,13 @@ const postDisbursement = async (
             }
             payeeResults.push({
               ...payeeItem,
-              paymentExecutionSystem: mapInfo.paymentExecutionSystem,
-              paymentExecutionSystemInfo,
-              isSuccess: true,
               timestamp: new Date().toISOString(),
-              result: disbursementResponseItem
+              status: mojaloopResponse.currentState,
+              // TODO: The following fields are optional
+              // Usually, these fields are based on payment execution system response
+              // For Poc, we are just passing the amount from the request
+              amountDebited: payeeItem.amount,
+              amountCredited: payeeItem.amount
             })
             break;
           }
@@ -106,15 +107,15 @@ const postDisbursement = async (
         if (err instanceof ValidationError) {
           payeeResults.push({
             ...payeeItem,
-            isSuccess: false,
             timestamp: new Date().toISOString(),
+            status: 'ABORTED',
             errors: err.validationErrors
           })
         } else {
           payeeResults.push({
             ...payeeItem,
-            isSuccess: false,
             timestamp: new Date().toISOString(),
+            status: 'ABORTED',
             errors: [ err.message ]
           })
         }

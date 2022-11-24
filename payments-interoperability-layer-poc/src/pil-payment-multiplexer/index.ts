@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import axios from 'axios'
-import Config from '../shared/config'
+import Config from './lib/config'
 import assert from 'assert'
 
 const sendMoney = async (sendMoneyRequest: MojaloopSendMoneyRequest) => {

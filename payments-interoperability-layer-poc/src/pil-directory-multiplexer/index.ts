@@ -12,7 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import Config from '../shared/config'
+import Config from './lib/config'
 
 const getPayeeAccountInformation = async (payeeAccountInformationRequest: GetPayeeAccountInformationRequest) => {
   const mappedInfo = Config.PAYEE_RESOLUTION_MAP.find(item => item.payeeIdType === payeeAccountInformationRequest.payeeIdType && item.payeeIdValue == payeeAccountInformationRequest.payeeIdValue)

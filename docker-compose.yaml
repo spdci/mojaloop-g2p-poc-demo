@@ -1,19 +1,19 @@
 version: "3.7"
 
 networks:
-  mojaloop-net:
-    name: mojaloop-net
+  g2p-poc-net:
+    name: g2p-poc-net
 
 services:
-  payments-multiplexer:
-    image: payments-multiplexer:local
+  payments-interoperability-layer-poc:
+    image: payments-interoperability-layer-poc:local
     build:
-      context: ./payments-multiplexer
+      context: ./payments-interoperability-layer-poc
     networks:
-      - mojaloop-net
-    container_name: payments-multiplexer
+      - g2p-poc-net
+    container_name: payments-interoperability-layer-poc
     volumes:
-      - "./payments-multiplexer/config/default.json:/opt/app/dist/config/default.json"
+      - "./payments-interoperability-layer-poc/config:/opt/app/dist/config"
     ports:
       - "3001:3001"
 
@@ -22,7 +22,7 @@ services:
     build:
       context: ./mojaloop/payment-manager/core-connector
     networks:
-      - mojaloop-net
+      - g2p-poc-net
     container_name: core-connector
     environment:
       - GOV_CORE_CONNECTOR_OUTBOUND_ENDPOINT=http://sdk-scheme-adapter:4001
@@ -40,7 +40,7 @@ services:
       - "4000:4000"
       - "4001:4001"
     networks:
-      - mojaloop-net
+      - g2p-poc-net
     depends_on:
       - redis
       - ml-testing-toolkit
@@ -50,7 +50,7 @@ services:
     container_name: redis
     image: "redis:6.2.4-alpine"
     networks:
-      - mojaloop-net
+      - g2p-poc-net
     ports:
       - "6379:6379"
     restart: always
@@ -97,7 +97,7 @@ services:
       - "5050:5050"
     command: npm start
     networks:
-      - mojaloop-net
+      - g2p-poc-net
 
   ml-testing-toolkit-ui:
     image: mojaloop/ml-testing-toolkit-ui:v15.0.0
@@ -114,7 +114,7 @@ services:
     depends_on:
       - ml-testing-toolkit
     networks:
-      - mojaloop-net
+      - g2p-poc-net
 
   ml-testing-toolkit-ui2:
     image: mojaloop/ml-testing-toolkit-ui:v15.0.0
@@ -131,12 +131,12 @@ services:
     depends_on:
       - ml-testing-toolkit
     networks:
-      - mojaloop-net
+      - g2p-poc-net
 
   # cbs-simulator:
   #   image: mojaloop/mojaloop-simulator:v12.0.0
   #   networks:
-  #     - mojaloop-net
+  #     - g2p-poc-net
   #   container_name: cbs-simulator
   #   env_file: ./mojaloop/payment-manager/dfsp_backend.env
   #   # volumes:

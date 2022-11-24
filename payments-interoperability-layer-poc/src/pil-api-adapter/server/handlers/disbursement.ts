@@ -12,14 +12,12 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StateResponseToolkit } from '~/server/plugins/state'
+import { StateResponseToolkit } from '../plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
-import MojaloopUtils from '../../lib/mojaloop-utils'
-import { MojaloopSendMoneyRequest } from '../../lib/mojaloop-utils'
-import MapUtils from '../../lib/map-utils'
+import PaymentMultiplexer, { MojaloopSendMoneyRequest } from '../../../pil-payment-multiplexer'
+import DirectoryMultiplexer from '../../../pil-directory-multiplexer'
 import { ObjectStore } from '../../lib/obj-store'
-import { request } from 'http'
 
 interface PayeeItem {
   payeeIdType: string;
@@ -54,13 +52,19 @@ const postDisbursement = async (
   try {
     const payeeResults: PayeeResultItem[] = []
     const disbursementRequest = _request.payload as DisbursementRequest
+    // TODO: In real implementation, the disbursement request from the client should be stored in redis here.
+    // And the Directory Multiplexer service should be notified using some kafka message event to fetch the account information for each individual item
+    // For PoC, we are looping through the payeeList and calling the DirectoryMultiplexer function directly here
     for await (const payeeItem of disbursementRequest.payeeList) {
       try {
-        const mapInfo = await MapUtils.getPayeeAccountInformation({
+        const mapInfo = await DirectoryMultiplexer.getPayeeAccountInformation({
           payeeIdType: payeeItem.payeeIdType,
           payeeIdValue: payeeItem.payeeIdValue
         })
         const paymentExecutionSystemInfo = mapInfo.paymentExecutionSystemInfo
+        // TODO: In real implementation, the payment multiplexer service should take care of the payment execution based on the 
+        // payment execution system information provided by directory multiplexer service.
+        // For PoC, we are checking the payment execution system and calling the PaymentMultiplexer function directly here
         switch(mapInfo.paymentExecutionSystem) {
           case 'MOJALOOP': {
             const sendMoneyRequest : MojaloopSendMoneyRequest = {
@@ -72,7 +76,7 @@ const postDisbursement = async (
               amount: payeeItem.amount,
               currency: payeeItem.currency
             }
-            const mojaloopResponse = await MojaloopUtils.sendMoney(sendMoneyRequest)
+            const mojaloopResponse = await PaymentMultiplexer.sendMoney(sendMoneyRequest)
             const disbursementResponseItem = {
               payeeInformation: mojaloopResponse.payeeInformation,
               transferId: mojaloopResponse.transferId,

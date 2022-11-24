@@ -1,11 +1,19 @@
 ## PoC for initiating a G2P (Government to Person) payment through mojaloop switch
 
-This is to demo a G2P payment using the following components
-- DFSP payment manager
-- Mojaloop Testing Toolkit
+This is PoC for a G2P payment using a sample implementation of `Payments Interoperability Layer`.
+
+This uses the following components
+- DFSP payment manager - As a sender FSP implementation
+- Mojaloop Testing Toolkit - Simulates the Mojaloop switch and receiver FSP
 
 ### Technical Architecture
-![Technical Architecture Diagram](assets/images/mojaloop-g2p-poc.drawio.png)
+![Technical Architecture Diagram](assets/diagrams/mojaloop-g2p-poc.drawio.svg)
+
+### Implementation Notes
+
+- The `Payments Interoperability Layer` consists of many sub components like `Payment Multiplexer`, `Directory Multiplexer`...etc which usually run as individual services in a cluster environment. But for PoC a single consolidated service is implemented.
+- Though the folders and files are properly named to suite the component names.
+- In the real implementations these components can be individual services which communicate each other by means of a messaging system like kafka and a caching system like redis.
 
 ### Deployment Instructions
 

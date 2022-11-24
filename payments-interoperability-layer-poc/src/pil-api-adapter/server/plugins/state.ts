@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import { ResponseToolkit, Server } from '@hapi/hapi'
-import { logger } from '../../shared/logger'
+import { logger } from '../../../shared/logger'
 
 export interface StateResponseToolkit extends ResponseToolkit {
   getLogger: () => any

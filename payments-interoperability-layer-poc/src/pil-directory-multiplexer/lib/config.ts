@@ -12,8 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import ServiceServer from './server'
-import Config from './shared/config'
+import rc from 'rc'
+import parse from 'parse-strings-in-object'
+import Config from '../../../config/pil-directory-multiplexer.json'
+import Package from '../../../package.json'
 
-// Setup & start API server
-ServiceServer.run(Config)
+export interface ServiceConfig {
+  // package.json
+  PACKAGE: Record<string, unknown>;
+  PAYEE_RESOLUTION_MAP: {
+    payeeIdType: string;
+    payeeIdValue: string;
+    paymentExecutionSystem: 'MOJALOOP' | 'NEFT' | 'UPI' | 'IMPS';
+    paymentExecutionSystemInfo: any;
+  }[];
+}
+
+const RC = parse(rc('PIL_DIRECTORY_MULTIPLEXER', Config)) as ServiceConfig
+
+export default {
+  ...RC,
+  PACKAGE: Package
+}

@@ -14,9 +14,9 @@
 
 // workaround for lack of typescript types for mojaloop dependencies
 // eslint-disable-next-line @typescript-eslint/triple-slash-reference
-/// <reference path="../../ambient.d.ts"/>
+/// <reference path="../../../ambient.d.ts"/>
 import { Server } from '@hapi/hapi'
-import { ServiceConfig } from '../shared/config'
+import Config, {ServiceConfig} from '../lib/config'
 import extensions from './extensions'
 import plugins from './plugins'
 import * as Path from 'path'
@@ -26,6 +26,7 @@ import Logger from '@mojaloop/central-services-logger'
 import { validateRoutes } from '@mojaloop/central-services-error-handling'
 
 async function _create (config: ServiceConfig): Promise<Server> {
+  
   const server: Server = await new Server({
     host: config.HOST,
     port: config.LISTEN_PORT,
@@ -47,14 +48,14 @@ async function _create (config: ServiceConfig): Promise<Server> {
 }
 
 async function _start (server: Server): Promise<Server> {
-  Logger.info(`core-connector is running @ ${server.info.uri}`)
+  Logger.info(`pil-api-adapter is running @ ${server.info.uri}`)
   await server.start()
   
   return server
 }
 
-async function run (config: ServiceConfig): Promise<Server> {
-  const server = await _create(config)
+async function run (): Promise<Server> {
+  const server = await _create(Config)
   await plugins.register(server)
   await extensions.register(server)
   return _start(server)

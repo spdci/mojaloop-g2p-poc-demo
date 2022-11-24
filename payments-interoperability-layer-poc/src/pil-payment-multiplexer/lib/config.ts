@@ -12,7 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import ServiceServer from './pil-api-adapter/server'
+import rc from 'rc'
+import parse from 'parse-strings-in-object'
+import Config from '../../../config/pil-payment-multiplexer.json'
+import Package from '../../../package.json'
+export interface ServiceConfig {
+  // package.json
+  PACKAGE: Record<string, unknown>;
 
-// Setup & start API server
-ServiceServer.run()
+  MOJALOOP_CONNECTION_INFO: {
+    dfspId: string;
+    endpoint: string;
+  }[];
+  REQUEST_TIMEOUT: number;
+
+}
+
+const RC = parse(rc('PIL_PAYMENT_MULTIPLEXER', Config)) as ServiceConfig
+
+export default {
+  ...RC,
+  PACKAGE: Package
+}

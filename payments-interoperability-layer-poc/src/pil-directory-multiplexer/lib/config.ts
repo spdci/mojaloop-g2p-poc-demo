@@ -14,22 +14,12 @@
 
 import rc from 'rc'
 import parse from 'parse-strings-in-object'
-import Config from '../../config/default.json'
-import Package from '../../package.json'
+import Config from '../../../config/pil-directory-multiplexer.json'
+import Package from '../../../package.json'
+
 export interface ServiceConfig {
   // package.json
   PACKAGE: Record<string, unknown>;
-  // API Server
-  LISTEN_PORT: number;
-  HOST: string;
-  CORS_WHITELIST: string[];
-  ALLOW_CREDENTIALS: boolean;
-
-  MOJALOOP_CONNECTION_INFO: {
-    dfspId: string;
-    endpoint: string;
-  }[];
-  REQUEST_TIMEOUT: number;
   PAYEE_RESOLUTION_MAP: {
     payeeIdType: string;
     payeeIdValue: string;
@@ -38,7 +28,7 @@ export interface ServiceConfig {
   }[];
 }
 
-const RC = parse(rc('GOV_PAYMENTS_MULTIPLEXER', Config)) as ServiceConfig
+const RC = parse(rc('PIL_DIRECTORY_MULTIPLEXER', Config)) as ServiceConfig
 
 export default {
   ...RC,

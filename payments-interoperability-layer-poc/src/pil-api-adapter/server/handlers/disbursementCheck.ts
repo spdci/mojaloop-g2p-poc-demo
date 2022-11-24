@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StateResponseToolkit } from '~/server/plugins/state'
+import { StateResponseToolkit } from '../plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
-import MojaloopUtils from '../../lib/mojaloop-utils'
-import { MojaloopPayabilityCheckRequest } from '../../lib/mojaloop-utils'
-import MapUtils from '../../lib/map-utils'
+import PaymentMultiplexer, { MojaloopPayabilityCheckRequest } from '../../../pil-payment-multiplexer'
+import DirectoryMultiplexer from '../../../pil-directory-multiplexer'
 
 interface PayeeItem {
   payeeIdType: string;
@@ -53,7 +52,7 @@ const disbursementCheck = async (
     const disbursementRequest = _request.payload as DisbursementCheckRequest
     for await (const payeeItem of disbursementRequest.payeeList) {
       try {
-        const mapInfo = await MapUtils.getPayeeAccountInformation({
+        const mapInfo = await DirectoryMultiplexer.getPayeeAccountInformation({
           payeeIdType: payeeItem.payeeIdType,
           payeeIdValue: payeeItem.payeeIdValue
         })
@@ -69,7 +68,7 @@ const disbursementCheck = async (
               amount: payeeItem.amount,
               currency: payeeItem.currency
             }
-            const mojaloopResponse = await MojaloopUtils.checkPayability(payabilityCheckRequest)
+            const mojaloopResponse = await PaymentMultiplexer.checkPayability(payabilityCheckRequest)
             const disbursementCheckResponseItem = {
               payeeInformation: mojaloopResponse.partyResponse,
               error: mojaloopResponse.error

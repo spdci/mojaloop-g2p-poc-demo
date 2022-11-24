@@ -12,7 +12,23 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import ServiceServer from './pil-api-adapter/server'
+import rc from 'rc'
+import parse from 'parse-strings-in-object'
+import Config from '../../../config/pil-api-adapter.json'
+import Package from '../../../package.json'
+export interface ServiceConfig {
+  // package.json
+  PACKAGE: Record<string, unknown>;
+  // API Server
+  LISTEN_PORT: number;
+  HOST: string;
+  CORS_WHITELIST: string[];
+  ALLOW_CREDENTIALS: boolean;
+}
 
-// Setup & start API server
-ServiceServer.run()
+const RC = parse(rc('PIL_API_ADAPTER', Config)) as ServiceConfig
+
+export default {
+  ...RC,
+  PACKAGE: Package
+}

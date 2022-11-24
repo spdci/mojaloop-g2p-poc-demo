@@ -12,12 +12,11 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-import { StateResponseToolkit } from '~/server/plugins/state'
+import { StateResponseToolkit } from '../plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 import { ValidationError } from '../../validation/validation-error'
-import MojaloopUtils from '../../lib/mojaloop-utils'
-import { MojaloopSendMoneyRequest } from '../../lib/mojaloop-utils'
-import MapUtils from '../../lib/map-utils'
+import PaymentMultiplexer, { MojaloopSendMoneyRequest } from '../../../pil-payment-multiplexer'
+import DirectoryMultiplexer from '../../../pil-directory-multiplexer'
 import { ObjectStore } from '../../lib/obj-store'
 import { request } from 'http'
 
@@ -56,7 +55,7 @@ const postDisbursement = async (
     const disbursementRequest = _request.payload as DisbursementRequest
     for await (const payeeItem of disbursementRequest.payeeList) {
       try {
-        const mapInfo = await MapUtils.getPayeeAccountInformation({
+        const mapInfo = await DirectoryMultiplexer.getPayeeAccountInformation({
           payeeIdType: payeeItem.payeeIdType,
           payeeIdValue: payeeItem.payeeIdValue
         })
@@ -72,7 +71,7 @@ const postDisbursement = async (
               amount: payeeItem.amount,
               currency: payeeItem.currency
             }
-            const mojaloopResponse = await MojaloopUtils.sendMoney(sendMoneyRequest)
+            const mojaloopResponse = await PaymentMultiplexer.sendMoney(sendMoneyRequest)
             const disbursementResponseItem = {
               payeeInformation: mojaloopResponse.payeeInformation,
               transferId: mojaloopResponse.transferId,

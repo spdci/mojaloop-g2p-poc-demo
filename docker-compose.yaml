@@ -13,7 +13,7 @@ services:
       - g2p-poc-net
     container_name: payments-interoperability-layer-poc
     volumes:
-      - "./payments-interoperability-layer-poc/config/default.json:/opt/app/dist/config/default.json"
+      - "./payments-interoperability-layer-poc/config:/opt/app/dist/config"
     ports:
       - "3001:3001"
 

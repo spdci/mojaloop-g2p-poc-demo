@@ -13,7 +13,7 @@
 // limitations under the License.
 
 import Shared from '@mojaloop/central-services-shared'
-import Config from '../../shared/config'
+import Config from '../../lib/config'
 import { StateResponseToolkit } from '../plugins/state'
 import { Request, ResponseObject } from '@hapi/hapi'
 

@@ -48,21 +48,26 @@ That's it, all the services will be deployed.
     "disbursementId": "f2957f7a-34c3-11ed-a261-0242ac120002",
     "note": "PENSION",
     "payeeList": [
-        {
-            "payeeIdType": "MSISDN",
-            "payeeIdValue": "9876543210",
-            "amount": 2000,
-            "currency": "INR"
-        },
-        {
-            "payeeIdType": "MSISDN",
-            "payeeIdValue": "8765432101",
-            "amount": 3000,
-            "currency": "INR"
-        }
+      {
+        "payeeIdType": "AADHAAR",
+        "payeeIdValue": "5000-0000-1234",
+        "amount": 100,
+        "currency": "INR"
+      },
+      {
+        "payeeIdType": "MOBILE",
+        "payeeIdValue": "8765432101",
+        "amount": 100,
+        "currency": "INR"
+      }
     ]
   }'
   ```
+- The above request is used initiate a disbursement.
+- The response returned includes the status of the individual payment and the disbursementId.
+- The status of RECEIVED or PENDING indicates the request is being processed but is not yet COMPLETED.
+- If you receive the RECEIVED or PENDING status, you can use the GET call with disbursementId to poll the payment status until it transitions to COMPLETED or FAILED.
+  - `curl --location --request GET 'http://localhost:3001/disbursement/f2957f7a-34c3-11ed-a261-0242ac120002'`
 - You should get the 'COMPLETED' status in the response.
 - You can check various requests and responses in TTK monitoring page
 - You should see the incoming notification in both payee mobile app simulators

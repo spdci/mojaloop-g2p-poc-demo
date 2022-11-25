@@ -2,7 +2,7 @@
   "MOJALOOP_CONNECTION_INFO" : [
     {
       "dfspId": "GovtBankA",
-      "endpoint": "http://localhost:3003"
+      "endpoint": "http://core-connector:3003"
     }
   ],
   "REQUEST_TIMEOUT" : 2000
